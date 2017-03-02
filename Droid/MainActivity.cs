@@ -16,6 +16,22 @@ namespace LiveTiles.Droid
 			// Set our view from the "main" layout resource
 			SetContentView(Resource.Layout.Main);
 
+			//var webView = mView.FindViewById<WebView>(Resource.Id.webView);
+
+			//webView.Settings.JavaScriptEnabled = true;
+			//webView.Settings.AllowContentAccess = true;
+			//webView.Settings.EnableSmoothTransition();
+			//webView.Settings.LoadsImagesAutomatically = true;
+			//webView.Settings.SetGeolocationEnabled(true);
+			//webView.SetWebViewClient(new WebViewClient());
+			//webView.SetBackgroundColor(Android.Graphics.Color.Transparent);
+
+			//webView.ClearCache(true);
+			//webView.ClearHistory();
+
+			//var url = string.Format(Constants.URL_GAUGE, AppSettings.UserID);
+			//webView.LoadUrl(url);
+
 			// Get our button from the layout resource,
 			// and attach an event to it
 			Button button = FindViewById<Button>(Resource.Id.myButton);

@@ -1,9 +1,9 @@
 ﻿using System;
 namespace LiveTiles
 {
-	public class MyClass
+	public class AppSettings
 	{
-		public MyClass()
+		public AppSettings()
 		{
 		}
 	}
