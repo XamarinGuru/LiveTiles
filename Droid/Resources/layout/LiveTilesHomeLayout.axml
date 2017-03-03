@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:id="@+id/navBar"
+        android:background="#ff00bfde">
+        <LinearLayout
+            android:orientation="horizontal"
+            android:minWidth="25px"
+            android:minHeight="25px"
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:id="@+id/ActionBack"
+            android:gravity="center">
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:id="@+id/imageView1"
+                android:background="@drawable/icon_back" />
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:minWidth="25px"
+            android:minHeight="25px"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:id="@+id/linearLayout3"
+            android:layout_weight="1" />
+        <LinearLayout
+            android:orientation="horizontal"
+            android:minWidth="25px"
+            android:minHeight="25px"
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:id="@+id/ActionRefresh"
+            android:gravity="center">
+            <ImageView
+                android:src="@drawable/icon_reload"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:id="@+id/imageView3" />
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:minWidth="25px"
+            android:minHeight="25px"
+            android:layout_width="30dp"
+            android:layout_height="match_parent"
+            android:id="@+id/ActionSettings"
+            android:gravity="center">
+            <ImageView
+                android:src="@drawable/icon_settings"
+                android:layout_width="20dp"
+                android:layout_height="30dp"
+                android:id="@+id/imageView2" />
+        </LinearLayout>
+    </LinearLayout>
+    <android.webkit.WebView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/LTWebView" />
+</LinearLayout>
