@@ -83,7 +83,7 @@ namespace LiveTiles.iOS
 
 			var strURL = LTWebView.Request.Url.AbsoluteString;
 
-			if (strURL.Contains("login"))
+			if (strURL.Contains(Constants.SYMBOL_LOGIN))
 				NavigationController.NavigationBar.Hidden = true;
 			else
 				NavigationController.NavigationBar.Hidden = false;

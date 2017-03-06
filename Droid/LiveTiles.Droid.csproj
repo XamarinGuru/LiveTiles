@@ -37,6 +37,7 @@
     <WarningLevel>4</WarningLevel>
     <AndroidManagedSymbols>true</AndroidManagedSymbols>
     <AndroidUseSharedRuntime>false</AndroidUseSharedRuntime>
+    <AndroidSupportedAbis>armeabi-v7a;x86;arm64-v8a;x86_64;armeabi</AndroidSupportedAbis>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -71,6 +72,10 @@
     <AndroidResource Include="Resources\drawable\icon_back.png" />
     <AndroidResource Include="Resources\drawable\icon_reload.png" />
     <AndroidResource Include="Resources\drawable\icon_settings.png" />
+    <AndroidResource Include="Resources\drawable\icon_logo.png" />
+    <AndroidResource Include="Resources\drawable\AppIcon.png" />
+    <AndroidResource Include="Resources\drawable\icon_home.png" />
+    <AndroidResource Include="Resources\drawable\icon_logout.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="VActivities\" />

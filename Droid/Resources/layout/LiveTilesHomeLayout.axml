@@ -60,8 +60,92 @@
                 android:id="@+id/imageView2" />
         </LinearLayout>
     </LinearLayout>
-    <android.webkit.WebView
+    <RelativeLayout
+        android:minWidth="25px"
+        android:minHeight="25px"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/LTWebView" />
+        android:id="@+id/relativeLayout1">
+        <android.webkit.WebView
+            android:id="@+id/LTWebView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+        <LinearLayout
+            android:orientation="vertical"
+            android:minWidth="25px"
+            android:minHeight="25px"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/settingsMenu">
+            <LinearLayout
+                android:orientation="horizontal"
+                android:minWidth="25px"
+                android:minHeight="25px"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:id="@+id/ActionStartPage"
+                android:layout_marginTop="10dp">
+                <ImageView
+                    android:src="@drawable/icon_home"
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:id="@+id/imageView4"
+                    android:padding="10dp" />
+                <TextView
+                    android:text="Start Page"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:id="@+id/txtStartPage"
+                    android:gravity="center" />
+            </LinearLayout>
+            <LinearLayout
+                android:orientation="horizontal"
+                android:minWidth="25px"
+                android:minHeight="25px"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:id="@+id/ActionLogOut">
+                <ImageView
+                    android:src="@drawable/icon_logout"
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:id="@+id/imageView4"
+                    android:padding="10dp" />
+                <TextView
+                    android:text="Log Out"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:id="@+id/txtLogOut"
+                    android:gravity="center" />
+            </LinearLayout>
+            <LinearLayout
+                android:orientation="horizontal"
+                android:minWidth="25px"
+                android:minHeight="25px"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:id="@+id/linearLayout7" />
+            <LinearLayout
+                android:orientation="vertical"
+                android:minWidth="25px"
+                android:minHeight="25px"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/linearLayout8">
+                <TextView
+                    android:text="Built with"
+                    android:layout_width="wrap_content"
+                    android:layout_height="15dp"
+                    android:id="@+id/txtBuiltWith"
+                    android:textSize="12dp"
+                    android:layout_marginLeft="20dp" />
+                <ImageView
+                    android:src="@drawable/icon_logo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:id="@+id/imageView5"
+                    android:layout_margin="5dp" />
+            </LinearLayout>
+        </LinearLayout>
+    </RelativeLayout>
 </LinearLayout>
