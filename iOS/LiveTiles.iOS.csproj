@@ -110,7 +110,7 @@
   <ItemGroup>
     <InterfaceDefinition Include="LaunchScreen.storyboard" />
     <InterfaceDefinition Include="Main.storyboard" />
-    <InterfaceDefinition Include="VControllers\BaseViewController.xib" />
+    <InterfaceDefinition Include="Resources\VControllers\BaseViewController.xib" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Info.plist" />
@@ -142,6 +142,10 @@
     <BundleResource Include="Resources\icon_back.png" />
     <BundleResource Include="Resources\icon_reload.png" />
     <BundleResource Include="Resources\icon_settings.png" />
+    <BundleResource Include="Resources\AppIcon.png" />
+    <BundleResource Include="Resources\icon_home.png" />
+    <BundleResource Include="Resources\icon_logo.png" />
+    <BundleResource Include="Resources\icon_logout.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>

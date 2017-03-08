@@ -16,13 +16,39 @@ namespace LiveTiles.iOS
     {
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
+        UIKit.NSLayoutConstraint heightMenu { get; set; }
+
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
         UIKit.UIWebView LTWebView { get; set; }
+
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
+        UIKit.UIView menuContent { get; set; }
+
+        [Action ("ActionLogOut:")]
+        [GeneratedCode ("iOS Designer", "1.0")]
+        partial void ActionLogOut (UIKit.UIButton sender);
+
+        [Action ("ActionStartPage:")]
+        [GeneratedCode ("iOS Designer", "1.0")]
+        partial void ActionStartPage (UIKit.UIButton sender);
 
         void ReleaseDesignerOutlets ()
         {
+            if (heightMenu != null) {
+                heightMenu.Dispose ();
+                heightMenu = null;
+            }
+
             if (LTWebView != null) {
                 LTWebView.Dispose ();
                 LTWebView = null;
+            }
+
+            if (menuContent != null) {
+                menuContent.Dispose ();
+                menuContent = null;
             }
         }
     }

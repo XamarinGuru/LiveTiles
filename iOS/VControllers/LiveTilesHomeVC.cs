@@ -7,6 +7,8 @@ namespace LiveTiles.iOS
 {
 	public partial class LiveTilesHomeVC : BaseViewController
 	{
+		bool hasMenu = false;
+
 		public LiveTilesHomeVC() : base()
 		{
 		}
@@ -41,15 +43,30 @@ namespace LiveTiles.iOS
 
 			NavigationItem.RightBarButtonItems = rightButtons;
 
+			menuContent.Alpha = 0;
+			heightMenu.Constant = 0;
+
 			LTWebView.ShouldStartLoad += HandleShouldStartLoad;
 			LTWebView.LoadFinished += HandleLoadFinished;
 
-			LTWebView.LoadRequest(new NSUrlRequest(new NSUrl(Constants.URL_LIVETILES)));
+			LTWebView.LoadRequest(new NSUrlRequest(new NSUrl(AppSettings.URL_BASE)));
 		}
 
 		void GoToSettings()
 		{
-			//throw new NotImplementedException();
+			this.View.LayoutIfNeeded();
+			menuContent.LayoutIfNeeded();
+
+			UIView.BeginAnimations("ds");
+			UIView.SetAnimationDuration(0.3f);
+
+			menuContent.Alpha = hasMenu ? 0 : 1;
+			heightMenu.Constant = hasMenu ? 0 : 230;
+
+			View.LayoutIfNeeded();
+			UIView.CommitAnimations();
+
+			hasMenu = !hasMenu;
 		}
 
 		void Refresh()
@@ -62,6 +79,19 @@ namespace LiveTiles.iOS
 			if (LTWebView.CanGoBack)
 				LTWebView.GoBack();
 		}
+
+		partial void ActionStartPage(UIButton sender)
+		{
+			LTWebView.LoadRequest(new NSUrlRequest(new NSUrl(AppSettings.URL_BASE)));
+			CloseMenu();
+		}
+
+		partial void ActionLogOut(UIButton sender)
+		{
+			LTWebView.LoadRequest(new NSUrlRequest(new NSUrl(AppSettings.URL_LOGOUT)));
+			CloseMenu();
+		}
+
 
 		#region webview delegate
 		bool HandleShouldStartLoad(UIWebView webView, NSUrlRequest request, UIWebViewNavigationType navigationType)
@@ -92,6 +122,18 @@ namespace LiveTiles.iOS
 			string jsString = Constants.INJECT_JS;
 			string jsWithCSS = string.Format(jsString, cssString);
 			LTWebView.EvaluateJavascript(jsWithCSS);
+
+			CloseMenu();
+		}
+
+		void CloseMenu()
+		{
+			menuContent.Alpha = 0;
+			heightMenu.Constant = 0;
+
+			View.LayoutIfNeeded();
+
+			hasMenu = false;
 		}
   		#endregion
 	}
