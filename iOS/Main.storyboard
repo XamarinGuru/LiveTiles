@@ -24,11 +24,12 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oBE-Ac-vcx" misplaced="YES">
-                                <rect key="frame" x="56.5" y="315" width="262.5" height="37.5"/>
+                                <rect key="frame" x="38" y="375.5" width="300" height="50"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" secondItem="oBE-Ac-vcx" secondAttribute="height" multiplier="7:1" id="HR8-hp-g8d"/>
+                                    <constraint firstAttribute="width" secondItem="oBE-Ac-vcx" secondAttribute="height" multiplier="6:1" id="HR8-hp-g8d"/>
                                 </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                 <state key="normal" title="Log In">
                                     <color key="titleColor" red="0.0" green="0.72549019607843135" blue="0.81960784313725488" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -37,12 +38,21 @@
                                     <action selector="ActionLogin:" destination="BYZ-38-t0r" eventType="touchUpInside" id="22"/>
                                 </connections>
                             </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_logo.png" translatesAutoresizingMaskIntoConstraints="NO" id="icb-Ue-WKT" misplaced="YES">
+                                <rect key="frame" x="56" y="130" width="262.5" height="140"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="icb-Ue-WKT" secondAttribute="height" multiplier="15:8" id="yNv-u4-t13"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" red="0.0" green="0.55294117647058827" blue="0.70980392156862748" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
+                            <constraint firstItem="icb-Ue-WKT" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" multiplier="0.7" id="2C7-UC-ox9"/>
                             <constraint firstItem="oBE-Ac-vcx" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="HiD-uS-i16"/>
-                            <constraint firstItem="oBE-Ac-vcx" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="YgX-7e-bMc"/>
-                            <constraint firstItem="oBE-Ac-vcx" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" multiplier="0.7" id="cx8-Iz-qmi"/>
+                            <constraint firstItem="icb-Ue-WKT" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Jry-Bw-Ww1"/>
+                            <constraint firstItem="oBE-Ac-vcx" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" multiplier="1.2" id="YgX-7e-bMc"/>
+                            <constraint firstItem="oBE-Ac-vcx" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" multiplier="0.8" id="cx8-Iz-qmi"/>
+                            <constraint firstItem="icb-Ue-WKT" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" multiplier="0.6" id="kSq-iz-Ki4"/>
                         </constraints>
                     </view>
                     <connections>
@@ -109,7 +119,7 @@
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zKF-cG-v4t" misplaced="YES">
                                                 <rect key="frame" x="0.0" y="0.0" width="375" height="70"/>
                                                 <connections>
-                                                    <action selector="ActionStartPage:" destination="z5E-lJ-ALa" id="30" eventType="touchUpInside"/>
+                                                    <action selector="ActionStartPage:" destination="z5E-lJ-ALa" eventType="touchUpInside" id="30"/>
                                                 </connections>
                                             </button>
                                         </subviews>
@@ -145,7 +155,7 @@
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="s0c-bf-jkh" misplaced="YES">
                                                 <rect key="frame" x="0.0" y="0.0" width="375" height="70"/>
                                                 <connections>
-                                                    <action selector="ActionLogOut:" destination="z5E-lJ-ALa" id="49" eventType="touchUpInside"/>
+                                                    <action selector="ActionLogOut:" destination="z5E-lJ-ALa" eventType="touchUpInside" id="49"/>
                                                 </connections>
                                             </button>
                                         </subviews>
@@ -225,8 +235,11 @@
                     <navigationItem key="navigationItem" id="3fJ-YD-ZsO"/>
                     <connections>
                         <outlet property="LTWebView" destination="t6S-1q-iDf" id="name-outlet-t6S-1q-iDf"/>
-                        <outlet property="menuContent" destination="KRD-Cy-4Bs" id="name-outlet-KRD-Cy-4Bs"/>
                         <outlet property="heightMenu" destination="EO8-w3-tSl" id="name-outlet-EO8-w3-tSl"/>
+                        <outlet property="menuContent" destination="KRD-Cy-4Bs" id="name-outlet-KRD-Cy-4Bs"/>
+                        <outlet property="lblStartPage" destination="Ybb-oE-0k0" id="name-outlet-Ybb-oE-0k0"/>
+                        <outlet property="lblLogOut" destination="VJ9-4N-MUz" id="name-outlet-VJ9-4N-MUz"/>
+                        <outlet property="lblBuiltWith" destination="g0q-sw-YEW" id="name-outlet-g0q-sw-YEW"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aEz-bg-ihi" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -243,7 +256,4 @@
         <image name="icon_settings.png" width="100" height="100"/>
         <image name="AppIcon.png" width="216" height="107"/>
     </resources>
-    <simulatedMetricsContainer key="defaultSimulatedMetrics">
-        <simulatedScreenMetrics key="destination" type="retina55"/>
-    </simulatedMetricsContainer>
 </document>

@@ -21,8 +21,8 @@ namespace LiveTiles
 
 
 		#endregion
-		//public static string URL_BASE = "https://trylivetiles.sharepoint.com/sites/workplace1000/SitePages/Trial_Mobile_View.aspx";
-		public static string URL_BASE = "https://getlivetiles.sharepoint.com";
+		public static string URL_BASE = "https://trylivetiles.sharepoint.com/sites/workplace1000/SitePages/Trial_Mobile_View.aspx";
+		//public static string URL_BASE = "https://getlivetiles.sharepoint.com";
 
 		public static string URL_LOGOUT = "https://login.microsoftonline.com/logout.srf";
 

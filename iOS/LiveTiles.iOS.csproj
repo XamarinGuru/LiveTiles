@@ -102,6 +102,7 @@
   <ItemGroup>
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Contents.json" />
     <ImageAsset Include="Assets.xcassets\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\AppIcon.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\" />
@@ -110,7 +111,6 @@
   <ItemGroup>
     <InterfaceDefinition Include="LaunchScreen.storyboard" />
     <InterfaceDefinition Include="Main.storyboard" />
-    <InterfaceDefinition Include="Resources\VControllers\BaseViewController.xib" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Info.plist" />

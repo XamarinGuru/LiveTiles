@@ -4,17 +4,30 @@ using UIKit;
 
 namespace LiveTiles.iOS
 {
-    public partial class LoginVC : UIViewController
+    public partial class LoginVC : BaseViewController
     {
-        public LoginVC (IntPtr handle) : base (handle)
-        {
-        }
+        public LoginVC() : base()
+		{
+		}
+		public LoginVC(IntPtr handle) : base(handle)
+		{
+		}
 
 		public override void ViewDidLoad()
 		{
 			base.ViewDidLoad();
+
+			SetUIStyle();
+		}
+
+		void SetUIStyle()
+		{
 			btnLogin.Layer.CornerRadius = 5;
 			btnLogin.ClipsToBounds = true;
+
+			View.BackgroundColor = ColorFromValue(AppSettings.COLOR_LOGIN_BACKGROUND);
+			btnLogin.SetTitleColor(ColorFromValue(AppSettings.COLOR_LOGIN_BUTTON_BACKGROUND), UIControlState.Normal);
+			btnLogin.BackgroundColor = ColorFromValue(AppSettings.COLOR_LOGIN_BUTTON_TEXT_BACKGROUND);
 		}
 
 		partial void ActionLogin(UIButton sender)

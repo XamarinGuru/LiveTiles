@@ -22,6 +22,14 @@ namespace LiveTiles.iOS
 		{
 			InvokeOnMainThread(() => { BTProgressHUD.Dismiss(); });
 		}
+
+		public UIColor ColorFromValue(string hexColor)
+		{
+			var red = Convert.ToInt32(hexColor.Substring(0, 2), 16) / 255f;
+			var green = Convert.ToInt32(hexColor.Substring(2, 2), 16) / 255f;
+			var blue = Convert.ToInt32(hexColor.Substring(4, 2), 16) / 255f;
+			return UIColor.FromRGB(red, green, blue);
+		}
 	}
 }
 

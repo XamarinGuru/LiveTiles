@@ -20,6 +20,18 @@ namespace LiveTiles.iOS
 
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
+        UIKit.UILabel lblBuiltWith { get; set; }
+
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
+        UIKit.UILabel lblLogOut { get; set; }
+
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
+        UIKit.UILabel lblStartPage { get; set; }
+
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
         UIKit.UIWebView LTWebView { get; set; }
 
         [Outlet]
@@ -39,6 +51,21 @@ namespace LiveTiles.iOS
             if (heightMenu != null) {
                 heightMenu.Dispose ();
                 heightMenu = null;
+            }
+
+            if (lblBuiltWith != null) {
+                lblBuiltWith.Dispose ();
+                lblBuiltWith = null;
+            }
+
+            if (lblLogOut != null) {
+                lblLogOut.Dispose ();
+                lblLogOut = null;
+            }
+
+            if (lblStartPage != null) {
+                lblStartPage.Dispose ();
+                lblStartPage = null;
             }
 
             if (LTWebView != null) {

@@ -20,9 +20,18 @@ namespace LiveTiles.iOS
 		{
 			base.ViewDidLoad();
 
-			NavigationController.NavigationBar.Hidden = true;
+			InitUISettings();
 
-			NavigationController.NavigationBar.TintColor = UIColor.Red;
+			LTWebView.ShouldStartLoad += HandleShouldStartLoad;
+			LTWebView.LoadFinished += HandleLoadFinished;
+
+			LTWebView.LoadRequest(new NSUrlRequest(new NSUrl(AppSettings.URL_BASE)));
+		}
+
+		void InitUISettings()
+		{
+			UINavigationBar.Appearance.BarTintColor = ColorFromValue(AppSettings.COLOR_LOGIN_BACKGROUND);
+			NavigationController.NavigationBar.Hidden = true;
 
 			var leftButton = new UIButton(new CGRect(0, 0, 20, 20));
 			leftButton.SetImage(UIImage.FromFile("icon_back.png"), UIControlState.Normal);
@@ -43,13 +52,13 @@ namespace LiveTiles.iOS
 
 			NavigationItem.RightBarButtonItems = rightButtons;
 
+			menuContent.BackgroundColor = ColorFromValue(AppSettings.COLOR_MENU_BACKGROUND);
 			menuContent.Alpha = 0;
 			heightMenu.Constant = 0;
 
-			LTWebView.ShouldStartLoad += HandleShouldStartLoad;
-			LTWebView.LoadFinished += HandleLoadFinished;
-
-			LTWebView.LoadRequest(new NSUrlRequest(new NSUrl(AppSettings.URL_BASE)));
+			lblStartPage.TextColor = ColorFromValue(AppSettings.COLOR_MENU_TEXT_BACKGROUND);
+			lblLogOut.TextColor = ColorFromValue(AppSettings.COLOR_MENU_TEXT_BACKGROUND);
+			lblBuiltWith.TextColor = ColorFromValue(AppSettings.COLOR_MENU_TEXT_BACKGROUND);
 		}
 
 		void GoToSettings()
