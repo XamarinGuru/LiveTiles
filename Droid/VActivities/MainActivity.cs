@@ -46,6 +46,7 @@ namespace LiveTiles.Droid
 					GlobalFunctions.AndroidColorFormat(AppSettings.COLOR_LOGIN_BUTTON_TEXT_BACKGROUND)
 				)
 			);
+			FindViewById<ImageView>(Resource.Id.imgLogo).SetImageResource(Resource.Drawable.icon_logo);
 		}
 	}
 }

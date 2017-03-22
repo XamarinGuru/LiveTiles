@@ -52,6 +52,8 @@ namespace LiveTiles.iOS
 
 			NavigationItem.RightBarButtonItems = rightButtons;
 
+			imgLogo.Image = UIImage.FromFile(AppSettings.LOGO_IMG_NAME);
+
 			menuContent.BackgroundColor = ColorFromValue(AppSettings.COLOR_MENU_BACKGROUND);
 			menuContent.Alpha = 0;
 			heightMenu.Constant = 0;

@@ -20,6 +20,10 @@ namespace LiveTiles.iOS
 
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
+        UIKit.UIImageView imgLogo { get; set; }
+
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
         UIKit.UILabel lblBuiltWith { get; set; }
 
         [Outlet]
@@ -51,6 +55,11 @@ namespace LiveTiles.iOS
             if (heightMenu != null) {
                 heightMenu.Dispose ();
                 heightMenu = null;
+            }
+
+            if (imgLogo != null) {
+                imgLogo.Dispose ();
+                imgLogo = null;
             }
 
             if (lblBuiltWith != null) {

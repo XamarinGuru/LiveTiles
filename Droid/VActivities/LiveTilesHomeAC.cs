@@ -3,6 +3,7 @@ using System;
 using Android.Animation;
 using Android.App;
 using Android.Content;
+using Android.Content.PM;
 using Android.Graphics;
 using Android.OS;
 using Android.Runtime;
@@ -13,7 +14,7 @@ using AndroidHUD;
 
 namespace LiveTiles.Droid
 {
-	[Activity(Label = "LiveTilesHomeAC")]
+	[Activity(Label = "LiveTilesHomeAC", ConfigurationChanges = ConfigChanges.Orientation | ConfigChanges.ScreenSize)]
 	public class LiveTilesHomeAC : Activity
 	{
 		LinearLayout settingsMenu;
@@ -61,6 +62,8 @@ namespace LiveTiles.Droid
 					GlobalFunctions.AndroidColorFormat(AppSettings.COLOR_MENU_TEXT_BACKGROUND)
 				)
 			);
+
+			FindViewById<ImageView>(Resource.Id.imgLogo).SetImageResource(Resource.Drawable.icon_logo);
 
 			FindViewById<LinearLayout>(Resource.Id.ActionBack).Click += ActionBack;
 			FindViewById<LinearLayout>(Resource.Id.ActionRefresh).Click += ActionRefresh;
@@ -199,7 +202,7 @@ namespace LiveTiles.Droid
 			{
 				base.OnPageStarted(view, url, favicon);
 
-				_act.ShowLoadingView();
+				//_act.ShowLoadingView();
 			}
 
 			public override void OnPageFinished(WebView view, String url)
@@ -216,7 +219,7 @@ namespace LiveTiles.Droid
 				string jsWithCSS = string.Format(jsString, cssString);
 				view.EvaluateJavascript(jsWithCSS, null);
 
-				_act.HideLoadingView();
+				//_act.HideLoadingView();
 			}
 		}
 	}

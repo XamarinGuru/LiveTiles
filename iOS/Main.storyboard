@@ -57,6 +57,7 @@
                     </view>
                     <connections>
                         <outlet property="btnLogin" destination="oBE-Ac-vcx" id="name-outlet-oBE-Ac-vcx"/>
+                        <outlet property="imgLogo" destination="icb-Ue-WKT" id="name-outlet-icb-Ue-WKT"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -240,6 +241,7 @@
                         <outlet property="lblStartPage" destination="Ybb-oE-0k0" id="name-outlet-Ybb-oE-0k0"/>
                         <outlet property="lblLogOut" destination="VJ9-4N-MUz" id="name-outlet-VJ9-4N-MUz"/>
                         <outlet property="lblBuiltWith" destination="g0q-sw-YEW" id="name-outlet-g0q-sw-YEW"/>
+                        <outlet property="imgLogo" destination="7is-1B-sMK" id="name-outlet-7is-1B-sMK"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aEz-bg-ihi" userLabel="First Responder" sceneMemberID="firstResponder"/>
