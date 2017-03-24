@@ -17,6 +17,11 @@ namespace LiveTiles.Droid
 			// Set our view from the "main" layout resource
 			SetContentView(Resource.Layout.Main);
 
+			if (AppStatus.IsLoggedIn == true)
+			{
+				var activity = new Intent(this, typeof(LiveTilesHomeAC));
+				StartActivityForResult(activity, 1);
+			}
 			// Get our button from the layout resource,
 			// and attach an event to it
 			Button button = FindViewById<Button>(Resource.Id.btnLogin);

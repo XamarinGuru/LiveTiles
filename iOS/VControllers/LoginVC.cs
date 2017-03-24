@@ -20,6 +20,17 @@ namespace LiveTiles.iOS
 			SetUIStyle();
 		}
 
+		public override void ViewDidAppear(bool animated)
+		{
+			base.ViewDidAppear(animated);
+
+			if (AppStatus.IsLoggedIn == true)
+			{
+				UINavigationController ltNVC = Storyboard.InstantiateViewController("LiveTilesNVC") as UINavigationController;
+				this.PresentViewController(ltNVC, true, null);
+			}
+		}
+
 		void SetUIStyle()
 		{
 			btnLogin.Layer.CornerRadius = 5;

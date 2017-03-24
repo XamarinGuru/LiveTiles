@@ -131,6 +131,7 @@
     <Compile Include="VControllers\BaseViewController.designer.cs">
       <DependentUpon>BaseViewController.cs</DependentUpon>
     </Compile>
+    <Compile Include="AppStatus.cs" />
   </ItemGroup>
   <ItemGroup>
     <XamarinComponentReference Include="btprogresshud">

@@ -19,6 +19,9 @@ namespace LiveTiles.Droid
 	{
 		LinearLayout settingsMenu;
 		WebView LTWebView;
+		bool isLoggedOut = false;
+		LinearLayout _navBar;
+
 		protected override void OnCreate(Bundle savedInstanceState)
 		{
 			Window.RequestFeature(WindowFeatures.NoTitle);
@@ -31,13 +34,13 @@ namespace LiveTiles.Droid
 
 		void InitUISettings()
 		{
-			var navBar = FindViewById<LinearLayout>(Resource.Id.navBar);
-			navBar.SetBackgroundColor(
+			_navBar = FindViewById<LinearLayout>(Resource.Id.navBar);
+			_navBar.SetBackgroundColor(
 				Color.ParseColor(
 					GlobalFunctions.AndroidColorFormat(AppSettings.COLOR_NAVIGATION_BAR_BACKGROUND)
 				)
 			);
-			navBar.Visibility = ViewStates.Gone;
+			_navBar.Visibility = ViewStates.Gone;
 
 			settingsMenu = FindViewById<LinearLayout>(Resource.Id.settingsMenu);
 			settingsMenu.SetBackgroundColor(
@@ -82,10 +85,8 @@ namespace LiveTiles.Droid
 
 			LTWebView.SetBackgroundColor(Color.Transparent);
 			
-			LTWebView.ClearCache(true);
-			LTWebView.ClearHistory();
 
-			LTWebView.SetWebViewClient(new MMWebViewClient(this, navBar));
+			LTWebView.SetWebViewClient(new MMWebViewClient(this, _navBar, isLoggedOut));
 
 			LTWebView.LoadUrl(AppSettings.URL_BASE);
 		}
@@ -135,6 +136,10 @@ namespace LiveTiles.Droid
 
 			this.DeleteDatabase("webview.db");
 			this.DeleteDatabase("webviewCache.db");
+
+			isLoggedOut = true;
+			_navBar.Visibility = ViewStates.Gone;
+			AppStatus.IsLoggedIn = false;
 		}
 
 
@@ -191,11 +196,13 @@ namespace LiveTiles.Droid
 		{
 			LiveTilesHomeAC _act;
 			LinearLayout _navBar;
+			bool _isLoggedOut = false;
 
-			public MMWebViewClient(LiveTilesHomeAC act, LinearLayout navBar)
+			public MMWebViewClient(LiveTilesHomeAC act, LinearLayout navBar, bool isLoggedOut)
 			{
 				_act = act;
 				_navBar = navBar;
+				_isLoggedOut = isLoggedOut;
 			}
 
 			public override void OnPageStarted(WebView view, String url, Bitmap favicon)
@@ -209,10 +216,21 @@ namespace LiveTiles.Droid
 			{
 				base.OnPageFinished(view, url);
 
+				if (_act.isLoggedOut) return;
+				//HideLoadingView()
+
+				CookieSyncManager.Instance.Sync();
+
 				if (url.Contains(Constants.SYMBOL_LOGIN))
+				{
 					_navBar.Visibility = ViewStates.Gone;
+					AppStatus.IsLoggedIn = false;
+				}
 				else
+				{
 					_navBar.Visibility = ViewStates.Visible;
+					AppStatus.IsLoggedIn = true;
+				}
 
 				string cssString = Constants.INJECT_CSS;
 				string jsString = Constants.INJECT_JS;

@@ -2,12 +2,14 @@ using Foundation;
 using System;
 using UIKit;
 using CoreGraphics;
+using WebKit;
 
 namespace LiveTiles.iOS
 {
 	public partial class LiveTilesHomeVC : BaseViewController
 	{
 		bool hasMenu = false;
+		bool isLoggedOut = false;
 
 		public LiveTilesHomeVC() : base()
 		{
@@ -100,6 +102,15 @@ namespace LiveTiles.iOS
 		partial void ActionLogOut(UIButton sender)
 		{
 			LTWebView.LoadRequest(new NSUrlRequest(new NSUrl(AppSettings.URL_LOGOUT)));
+
+			NSUrlCache.SharedCache.RemoveAllCachedResponses();
+			foreach (NSHttpCookie cookie in NSHttpCookieStorage.SharedStorage.Cookies)
+			{
+				NSHttpCookieStorage.SharedStorage.DeleteCookie(cookie);
+			}
+			isLoggedOut = true;
+			NavigationController.NavigationBar.Hidden = true;
+			AppStatus.IsLoggedIn = false;
 			CloseMenu();
 		}
 
@@ -120,14 +131,18 @@ namespace LiveTiles.iOS
 
 		void HandleLoadFinished(object sender, EventArgs e)
 		{
+			if (isLoggedOut) return;
 			//HideLoadingView();
-
+			bool isLoggedIn;
 			var strURL = LTWebView.Request.Url.AbsoluteString;
 
 			if (strURL.Contains(Constants.SYMBOL_LOGIN))
-				NavigationController.NavigationBar.Hidden = true;
+				isLoggedIn = false;
 			else
-				NavigationController.NavigationBar.Hidden = false;
+				isLoggedIn = true;
+
+			NavigationController.NavigationBar.Hidden = !isLoggedIn;
+			AppStatus.IsLoggedIn = isLoggedIn;
 
 			string cssString = Constants.INJECT_CSS;
 			string jsString = Constants.INJECT_JS;
