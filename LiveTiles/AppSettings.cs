@@ -12,11 +12,12 @@ namespace LiveTiles
 		/// ///App Name & Package Name
 		/// <summary>
 		/// Change Application Name & Package Name in project/AndroidManifest.xml
+		/// And need to change Activity label in line #9 of MainActivity
 		/// </summary>
 
-		/// Logo Icon in Login Page
+		/// Logo Icon & background in Login Page
 		/// <summary>
-		/// Change image icon_logo.png in path root/Droid/Resources/drawable with same name & format
+		/// Change image - icon_logo.png for logo and background.png for background in path root/Droid/Resources/drawable with same name & format
 		/// </summary>
 		#endregion
 
@@ -27,9 +28,9 @@ namespace LiveTiles
 		/// Change Application Name & Package Name in project/info.plist
 		/// </summary>
 
-		/// Logo Icon in Login Page
+		/// Logo Icon & background in Login Page
 		/// <summary>
-		/// Change image icon_logo.png in path root/iOS/Resources/ with same name & format
+		/// Change image - icon_logo.png for logo and background.png for background in path root/iOS/Resources/ with same name & format
 		/// </summary>
 		#endregion
 

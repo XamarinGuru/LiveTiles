@@ -20,10 +20,13 @@
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oBE-Ac-vcx" misplaced="YES">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background.png" translatesAutoresizingMaskIntoConstraints="NO" id="zWn-iU-ggV">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oBE-Ac-vcx">
                                 <rect key="frame" x="38" y="375.5" width="300" height="50"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -38,7 +41,7 @@
                                     <action selector="ActionLogin:" destination="BYZ-38-t0r" eventType="touchUpInside" id="22"/>
                                 </connections>
                             </button>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_logo.png" translatesAutoresizingMaskIntoConstraints="NO" id="icb-Ue-WKT" misplaced="YES">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_logo.png" translatesAutoresizingMaskIntoConstraints="NO" id="icb-Ue-WKT">
                                 <rect key="frame" x="56" y="130" width="262.5" height="140"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="icb-Ue-WKT" secondAttribute="height" multiplier="15:8" id="yNv-u4-t13"/>
@@ -48,9 +51,13 @@
                         <color key="backgroundColor" red="0.0" green="0.55294117647058827" blue="0.70980392156862748" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="icb-Ue-WKT" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" multiplier="0.7" id="2C7-UC-ox9"/>
+                            <constraint firstItem="zWn-iU-ggV" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="85e-9a-IwI"/>
+                            <constraint firstItem="zWn-iU-ggV" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="DcS-Pm-kzV"/>
                             <constraint firstItem="oBE-Ac-vcx" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="HiD-uS-i16"/>
                             <constraint firstItem="icb-Ue-WKT" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Jry-Bw-Ww1"/>
+                            <constraint firstAttribute="trailing" secondItem="zWn-iU-ggV" secondAttribute="trailing" id="WQq-Tg-14P"/>
                             <constraint firstItem="oBE-Ac-vcx" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" multiplier="1.2" id="YgX-7e-bMc"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="zWn-iU-ggV" secondAttribute="bottom" id="ZQa-ld-MKp"/>
                             <constraint firstItem="oBE-Ac-vcx" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" multiplier="0.8" id="cx8-Iz-qmi"/>
                             <constraint firstItem="icb-Ue-WKT" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" multiplier="0.6" id="kSq-iz-Ki4"/>
                         </constraints>
@@ -92,17 +99,17 @@
                         <viewControllerLayoutGuide type="bottom" id="lVC-NX-Cp8"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="cR7-cd-Nsa">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="t6S-1q-iDf" misplaced="YES">
+                            <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="t6S-1q-iDf">
                                 <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                                 <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </webView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KRD-Cy-4Bs" misplaced="YES">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KRD-Cy-4Bs">
                                 <rect key="frame" x="0.0" y="64" width="375" height="230"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qBc-et-fJ8" misplaced="YES">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qBc-et-fJ8">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="70"/>
                                         <subviews>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_home.png" translatesAutoresizingMaskIntoConstraints="NO" id="7SL-TA-PDL">
@@ -117,7 +124,7 @@
                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zKF-cG-v4t" misplaced="YES">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zKF-cG-v4t">
                                                 <rect key="frame" x="0.0" y="0.0" width="375" height="70"/>
                                                 <connections>
                                                     <action selector="ActionStartPage:" destination="z5E-lJ-ALa" eventType="touchUpInside" id="30"/>
@@ -138,7 +145,7 @@
                                             <constraint firstItem="Ybb-oE-0k0" firstAttribute="centerY" secondItem="7SL-TA-PDL" secondAttribute="centerY" id="jm6-ZU-fCy"/>
                                         </constraints>
                                     </view>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="B8j-Sg-19h" misplaced="YES">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="B8j-Sg-19h">
                                         <rect key="frame" x="0.0" y="70" width="375" height="70"/>
                                         <subviews>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_logout.png" translatesAutoresizingMaskIntoConstraints="NO" id="MbF-Br-tjC">
@@ -153,7 +160,7 @@
                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="s0c-bf-jkh" misplaced="YES">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="s0c-bf-jkh">
                                                 <rect key="frame" x="0.0" y="0.0" width="375" height="70"/>
                                                 <connections>
                                                     <action selector="ActionLogOut:" destination="z5E-lJ-ALa" eventType="touchUpInside" id="49"/>
@@ -175,7 +182,7 @@
                                             <constraint firstAttribute="bottom" secondItem="s0c-bf-jkh" secondAttribute="bottom" id="qvB-WE-0GP"/>
                                         </constraints>
                                     </view>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YoE-uA-Kce" misplaced="YES">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YoE-uA-Kce">
                                         <rect key="frame" x="0.0" y="140" width="375" height="90"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Built with" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="g0q-sw-YEW">
@@ -237,25 +244,22 @@
                     <connections>
                         <outlet property="LTWebView" destination="t6S-1q-iDf" id="name-outlet-t6S-1q-iDf"/>
                         <outlet property="heightMenu" destination="EO8-w3-tSl" id="name-outlet-EO8-w3-tSl"/>
-                        <outlet property="menuContent" destination="KRD-Cy-4Bs" id="name-outlet-KRD-Cy-4Bs"/>
-                        <outlet property="lblStartPage" destination="Ybb-oE-0k0" id="name-outlet-Ybb-oE-0k0"/>
-                        <outlet property="lblLogOut" destination="VJ9-4N-MUz" id="name-outlet-VJ9-4N-MUz"/>
-                        <outlet property="lblBuiltWith" destination="g0q-sw-YEW" id="name-outlet-g0q-sw-YEW"/>
                         <outlet property="imgLogo" destination="7is-1B-sMK" id="name-outlet-7is-1B-sMK"/>
+                        <outlet property="lblBuiltWith" destination="g0q-sw-YEW" id="name-outlet-g0q-sw-YEW"/>
+                        <outlet property="lblLogOut" destination="VJ9-4N-MUz" id="name-outlet-VJ9-4N-MUz"/>
+                        <outlet property="lblStartPage" destination="Ybb-oE-0k0" id="name-outlet-Ybb-oE-0k0"/>
+                        <outlet property="menuContent" destination="KRD-Cy-4Bs" id="name-outlet-KRD-Cy-4Bs"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aEz-bg-ihi" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="181.6" y="-71.51424"/>
+            <point key="canvasLocation" x="181.59999999999999" y="-71.514240000000001"/>
         </scene>
     </scenes>
     <resources>
+        <image name="background.png" width="601" height="857"/>
         <image name="icon_home.png" width="100" height="100"/>
         <image name="icon_logo.png" width="216" height="107"/>
         <image name="icon_logout.png" width="100" height="100"/>
-        <image name="icon_back.png" width="100" height="100"/>
-        <image name="icon_reload.png" width="100" height="100"/>
-        <image name="icon_settings.png" width="100" height="100"/>
-        <image name="AppIcon.png" width="216" height="107"/>
     </resources>
 </document>

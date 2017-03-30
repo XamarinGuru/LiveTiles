@@ -36,11 +36,11 @@ namespace LiveTiles.Droid
 
 		void SetUIStyle()
 		{
-			FindViewById<LinearLayout>(Resource.Id.background).SetBackgroundColor(
-				Android.Graphics.Color.ParseColor(
-					GlobalFunctions.AndroidColorFormat(AppSettings.COLOR_LOGIN_BACKGROUND)
-				)
-			);
+			//FindViewById<LinearLayout>(Resource.Id.background).SetBackgroundColor(
+			//	Android.Graphics.Color.ParseColor(
+			//		GlobalFunctions.AndroidColorFormat(AppSettings.COLOR_LOGIN_BACKGROUND)
+			//	)
+			//);
 			FindViewById<Button>(Resource.Id.btnLogin).SetTextColor(
 				Android.Graphics.Color.ParseColor(
 					GlobalFunctions.AndroidColorFormat(AppSettings.COLOR_LOGIN_BUTTON_BACKGROUND)
