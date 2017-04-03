@@ -3,10 +3,11 @@ using Android.Widget;
 using Android.OS;
 using Android.Content;
 using Android.Views;
+using Android.Content.PM;
 
 namespace LiveTiles.Droid
 {
-	[Activity(Label = "LiveTiles", MainLauncher = true, Icon = "@drawable/AppIcon")]
+	[Activity(Label = "MainActivity", ConfigurationChanges = ConfigChanges.Orientation | ConfigChanges.ScreenSize)]
 	public class MainActivity : Activity
 	{
 		protected override void OnCreate(Bundle savedInstanceState)

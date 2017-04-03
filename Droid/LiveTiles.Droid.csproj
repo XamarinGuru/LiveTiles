@@ -60,6 +60,7 @@
     <Compile Include="VActivities\MainActivity.cs" />
     <Compile Include="VActivities\LiveTilesHomeAC.cs" />
     <Compile Include="AppStatus.cs" />
+    <Compile Include="VActivities\SplashActivity.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -78,6 +79,8 @@
     <AndroidResource Include="Resources\drawable\icon_home.png" />
     <AndroidResource Include="Resources\drawable\icon_logout.png" />
     <AndroidResource Include="Resources\drawable\background.png" />
+    <AndroidResource Include="Resources\values\style.xml" />
+    <AndroidResource Include="Resources\drawable\splash.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="VActivities\" />

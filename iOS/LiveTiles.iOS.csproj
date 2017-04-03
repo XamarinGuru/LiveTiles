@@ -148,6 +148,7 @@
     <BundleResource Include="Resources\icon_logo.png" />
     <BundleResource Include="Resources\icon_logout.png" />
     <BundleResource Include="Resources\background.png" />
+    <BundleResource Include="Resources\splash.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>
