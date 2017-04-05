@@ -84,19 +84,19 @@ namespace LiveTiles.Droid
 			LTWebView.Settings.SetGeolocationEnabled(true);
 
 			LTWebView.SetBackgroundColor(Color.Transparent);
-			
 
-			LTWebView.SetWebViewClient(new MMWebViewClient(this, _navBar, isLoggedOut));
+			var linearProgress = FindViewById<LinearLayout>(Resource.Id.linearProgress);
+			LTWebView.SetWebViewClient(new MMWebViewClient(this, _navBar, isLoggedOut, linearProgress));
 
 			LTWebView.LoadUrl(AppSettings.URL_BASE);
 		}
 
 
 
-		void HandleLoadFinished(WebView arg1, string arg2, Bitmap arg3)
-		{
-			//throw new NotImplementedException();
-		}
+		//void HandleLoadFinished(WebView arg1, string arg2, Bitmap arg3)
+		//{
+		//	//throw new NotImplementedException();
+		//}
 
 		void ActionBack(object sender, EventArgs e)
 		{
@@ -196,17 +196,24 @@ namespace LiveTiles.Droid
 		{
 			LiveTilesHomeAC _act;
 			LinearLayout _navBar;
+			LinearLayout _ProgressBar;
 			bool _isLoggedOut = false;
 
-			public MMWebViewClient(LiveTilesHomeAC act, LinearLayout navBar, bool isLoggedOut)
+			public MMWebViewClient(LiveTilesHomeAC act, LinearLayout navBar, bool isLoggedOut, LinearLayout linearProgress)
 			{
 				_act = act;
 				_navBar = navBar;
+				_ProgressBar = linearProgress;
 				_isLoggedOut = isLoggedOut;
 			}
 
 			public override void OnPageStarted(WebView view, String url, Bitmap favicon)
 			{
+				if (_ProgressBar != null)
+				{
+					_ProgressBar.Visibility = ViewStates.Visible;
+				}
+
 				base.OnPageStarted(view, url, favicon);
 
 				//_act.ShowLoadingView();
@@ -215,6 +222,11 @@ namespace LiveTiles.Droid
 			public override void OnPageFinished(WebView view, String url)
 			{
 				base.OnPageFinished(view, url);
+
+				if (_ProgressBar != null)
+				{
+					_ProgressBar.Visibility = ViewStates.Gone;
+				}
 
 				if (_act.isLoggedOut) return;
 				//HideLoadingView()

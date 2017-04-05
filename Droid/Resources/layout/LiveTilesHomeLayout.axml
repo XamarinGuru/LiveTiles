@@ -147,5 +147,19 @@
                     android:layout_margin="5dp" />
             </LinearLayout>
         </LinearLayout>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:minWidth="25px"
+            android:minHeight="25px"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/linearProgress"
+            android:gravity="center">
+            <ImageView
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:id="@+id/imageView5"
+                android:src="@drawable/icon_progress" />
+        </LinearLayout>
     </RelativeLayout>
 </LinearLayout>

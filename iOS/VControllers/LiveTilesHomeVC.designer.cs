@@ -16,6 +16,10 @@ namespace LiveTiles.iOS
     {
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
+        UIKit.UIImageView _ProgressBar { get; set; }
+
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
         UIKit.NSLayoutConstraint heightMenu { get; set; }
 
         [Outlet]
@@ -52,6 +56,11 @@ namespace LiveTiles.iOS
 
         void ReleaseDesignerOutlets ()
         {
+            if (_ProgressBar != null) {
+                _ProgressBar.Dispose ();
+                _ProgressBar = null;
+            }
+
             if (heightMenu != null) {
                 heightMenu.Dispose ();
                 heightMenu = null;

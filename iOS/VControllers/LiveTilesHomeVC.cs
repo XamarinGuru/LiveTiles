@@ -118,7 +118,7 @@ namespace LiveTiles.iOS
 		#region webview delegate
 		bool HandleShouldStartLoad(UIWebView webView, NSUrlRequest request, UIWebViewNavigationType navigationType)
 		{
-			//ShowLoadingView("Loading...");
+			_ProgressBar.Hidden = false;
 
 			//var strURL = request.Url.AbsoluteString;
 
@@ -131,6 +131,8 @@ namespace LiveTiles.iOS
 
 		void HandleLoadFinished(object sender, EventArgs e)
 		{
+			_ProgressBar.Hidden = true;
+
 			if (isLoggedOut) return;
 			//HideLoadingView();
 			bool isLoggedIn;

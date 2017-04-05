@@ -20,13 +20,13 @@
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background.png" translatesAutoresizingMaskIntoConstraints="NO" id="zWn-iU-ggV">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background.png" translatesAutoresizingMaskIntoConstraints="NO" id="zWn-iU-ggV" misplaced="YES">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oBE-Ac-vcx">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oBE-Ac-vcx" misplaced="YES">
                                 <rect key="frame" x="38" y="375.5" width="300" height="50"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -41,7 +41,7 @@
                                     <action selector="ActionLogin:" destination="BYZ-38-t0r" eventType="touchUpInside" id="22"/>
                                 </connections>
                             </button>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_logo.png" translatesAutoresizingMaskIntoConstraints="NO" id="icb-Ue-WKT">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_logo.png" translatesAutoresizingMaskIntoConstraints="NO" id="icb-Ue-WKT" misplaced="YES">
                                 <rect key="frame" x="56" y="130" width="262.5" height="140"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="icb-Ue-WKT" secondAttribute="height" multiplier="15:8" id="yNv-u4-t13"/>
@@ -99,17 +99,17 @@
                         <viewControllerLayoutGuide type="bottom" id="lVC-NX-Cp8"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="cR7-cd-Nsa">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="t6S-1q-iDf">
+                            <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="t6S-1q-iDf" misplaced="YES">
                                 <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                                 <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </webView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KRD-Cy-4Bs">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KRD-Cy-4Bs" misplaced="YES">
                                 <rect key="frame" x="0.0" y="64" width="375" height="230"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qBc-et-fJ8">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qBc-et-fJ8" misplaced="YES">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="70"/>
                                         <subviews>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_home.png" translatesAutoresizingMaskIntoConstraints="NO" id="7SL-TA-PDL">
@@ -124,7 +124,7 @@
                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zKF-cG-v4t">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zKF-cG-v4t" misplaced="YES">
                                                 <rect key="frame" x="0.0" y="0.0" width="375" height="70"/>
                                                 <connections>
                                                     <action selector="ActionStartPage:" destination="z5E-lJ-ALa" eventType="touchUpInside" id="30"/>
@@ -145,7 +145,7 @@
                                             <constraint firstItem="Ybb-oE-0k0" firstAttribute="centerY" secondItem="7SL-TA-PDL" secondAttribute="centerY" id="jm6-ZU-fCy"/>
                                         </constraints>
                                     </view>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="B8j-Sg-19h">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="B8j-Sg-19h" misplaced="YES">
                                         <rect key="frame" x="0.0" y="70" width="375" height="70"/>
                                         <subviews>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_logout.png" translatesAutoresizingMaskIntoConstraints="NO" id="MbF-Br-tjC">
@@ -160,7 +160,7 @@
                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="s0c-bf-jkh">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="s0c-bf-jkh" misplaced="YES">
                                                 <rect key="frame" x="0.0" y="0.0" width="375" height="70"/>
                                                 <connections>
                                                     <action selector="ActionLogOut:" destination="z5E-lJ-ALa" eventType="touchUpInside" id="49"/>
@@ -182,7 +182,7 @@
                                             <constraint firstAttribute="bottom" secondItem="s0c-bf-jkh" secondAttribute="bottom" id="qvB-WE-0GP"/>
                                         </constraints>
                                     </view>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YoE-uA-Kce">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YoE-uA-Kce" misplaced="YES">
                                         <rect key="frame" x="0.0" y="140" width="375" height="90"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Built with" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="g0q-sw-YEW">
@@ -228,6 +228,13 @@
                                     <constraint firstItem="YoE-uA-Kce" firstAttribute="leading" secondItem="KRD-Cy-4Bs" secondAttribute="leading" id="wem-e3-fsM"/>
                                 </constraints>
                             </view>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_progress.png" translatesAutoresizingMaskIntoConstraints="NO" id="BsM-NN-JB3" misplaced="YES">
+                                <rect key="frame" x="112" y="258.5" width="150" height="150"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="150" id="CA1-Y4-u4q"/>
+                                    <constraint firstAttribute="height" constant="150" id="XHj-UB-R2c"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -237,7 +244,9 @@
                             <constraint firstAttribute="trailing" secondItem="t6S-1q-iDf" secondAttribute="trailing" id="OsE-z4-2fK"/>
                             <constraint firstItem="KRD-Cy-4Bs" firstAttribute="leading" secondItem="cR7-cd-Nsa" secondAttribute="leading" id="Oth-qW-o3X"/>
                             <constraint firstItem="lVC-NX-Cp8" firstAttribute="top" secondItem="t6S-1q-iDf" secondAttribute="bottom" id="TrA-er-ACO"/>
+                            <constraint firstItem="BsM-NN-JB3" firstAttribute="centerX" secondItem="cR7-cd-Nsa" secondAttribute="centerX" id="cUa-M8-HZ0"/>
                             <constraint firstItem="t6S-1q-iDf" firstAttribute="leading" secondItem="cR7-cd-Nsa" secondAttribute="leading" id="gBp-WD-yY3"/>
+                            <constraint firstItem="BsM-NN-JB3" firstAttribute="centerY" secondItem="cR7-cd-Nsa" secondAttribute="centerY" id="m9I-NB-WQF"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="3fJ-YD-ZsO"/>
@@ -249,11 +258,12 @@
                         <outlet property="lblLogOut" destination="VJ9-4N-MUz" id="name-outlet-VJ9-4N-MUz"/>
                         <outlet property="lblStartPage" destination="Ybb-oE-0k0" id="name-outlet-Ybb-oE-0k0"/>
                         <outlet property="menuContent" destination="KRD-Cy-4Bs" id="name-outlet-KRD-Cy-4Bs"/>
+                        <outlet property="_ProgressBar" destination="BsM-NN-JB3" id="name-outlet-BsM-NN-JB3"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aEz-bg-ihi" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="181.59999999999999" y="-71.514240000000001"/>
+            <point key="canvasLocation" x="181.6" y="-71.51424"/>
         </scene>
     </scenes>
     <resources>
@@ -261,5 +271,11 @@
         <image name="icon_home.png" width="100" height="100"/>
         <image name="icon_logo.png" width="216" height="107"/>
         <image name="icon_logout.png" width="100" height="100"/>
+        <image name="icon_progress.png" width="206" height="108"/>
+        <image name="icon_back.png" width="100" height="100"/>
+        <image name="icon_reload.png" width="100" height="100"/>
+        <image name="icon_settings.png" width="100" height="100"/>
+        <image name="AppIcon.png" width="216" height="107"/>
+        <image name="splash.png" width="466" height="782"/>
     </resources>
 </document>
