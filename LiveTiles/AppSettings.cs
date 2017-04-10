@@ -42,9 +42,16 @@ namespace LiveTiles
 
 		//public static string URL_BASE = "https://trylivetiles.sharepoint.com/sites/workplace1000/SitePages/Trial_Mobile_View.aspx";
 		//public static string URL_BASE = "https://trylivetiles.sharepoint.com/sites/workplace1000";
-		public static string URL_BASE = "https://getlivetiles.sharepoint.com";
+		//public static string URL_BASE = "https://getlivetiles.sharepoint.com";
 
-		public static string URL_LOGOUT = "https://getlivetiles.sharepoint.com";
+		#region the url for demo account of apple review
+		public static string URL_DEMO = "https://trylivetiles.sharepoint.com/sites/workplace1000/sitepages/Andy.aspx";
+		#endregion
+
+		#region the url for normal user
+		public static string URL_BASE = "https://trylivetiles.sharepoint.com/sites/workplace1000/sitepages/Andy.aspx";
+		#endregion
+		//public static string URL_LOGOUT = "https://getlivetiles.sharepoint.com";
 
 		public static string COLOR_LOGIN_BACKGROUND = "1CB4E9";
 		public static string COLOR_LOGIN_BUTTON_BACKGROUND = "1CB4E9";
@@ -54,5 +61,8 @@ namespace LiveTiles
 		public static string COLOR_MENU_TEXT_BACKGROUND = "000000";
 
 		public static string LOGO_IMG_NAME = "icon_logo.png";
+
+		public static string DEMO_EMAIL = "jun.lee@trylivetiles.onmicrosoft.com";
+		public static string MSG_INVALID_EMAIL = "Please input your email.";
 	}
 }

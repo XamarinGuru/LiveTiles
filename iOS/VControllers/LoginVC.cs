@@ -26,8 +26,7 @@ namespace LiveTiles.iOS
 
 			if (AppStatus.IsLoggedIn == true)
 			{
-				UINavigationController ltNVC = Storyboard.InstantiateViewController("LiveTilesNVC") as UINavigationController;
-				this.PresentViewController(ltNVC, true, null);
+				LoginWithEmail(string.Empty);
 			}
 		}
 
@@ -45,7 +44,19 @@ namespace LiveTiles.iOS
 
 		partial void ActionLogin(UIButton sender)
 		{
+			if (String.IsNullOrEmpty(txtEmail.Text))
+			{
+				ShowMessageBox(null, AppSettings.MSG_INVALID_EMAIL);
+				return;
+			}
+
+			LoginWithEmail(txtEmail.Text);
+		}
+
+		void LoginWithEmail(string email)
+		{
 			UINavigationController ltNVC = Storyboard.InstantiateViewController("LiveTilesNVC") as UINavigationController;
+			(ltNVC.TopViewController as LiveTilesHomeVC)._email = email;
 			this.PresentViewController(ltNVC, true, null);
 		}
 	}

@@ -14,7 +14,7 @@
         <!--LoginVC-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="LoginVC" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="LoginVC" sceneMemberID="viewController" storyboardIdentifier="LoginVC" restorationIdentifier="LoginVC">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -27,7 +27,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oBE-Ac-vcx" misplaced="YES">
-                                <rect key="frame" x="38" y="375.5" width="300" height="50"/>
+                                <rect key="frame" x="38" y="408.5" width="300" height="50"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="oBE-Ac-vcx" secondAttribute="height" multiplier="6:1" id="HR8-hp-g8d"/>
@@ -47,29 +47,51 @@
                                     <constraint firstAttribute="width" secondItem="icb-Ue-WKT" secondAttribute="height" multiplier="15:8" id="yNv-u4-t13"/>
                                 </constraints>
                             </imageView>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email address" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="r4D-oJ-cdO" misplaced="YES">
+                                <rect key="frame" x="37.5" y="325" width="300" height="50"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DMC-3B-Weh" misplaced="YES">
+                                <rect key="frame" x="37.5" y="375" width="300" height="1"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="1" id="Hfb-VN-EF0"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="0.0" green="0.55294117647058827" blue="0.70980392156862748" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="icb-Ue-WKT" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" multiplier="0.7" id="2C7-UC-ox9"/>
+                            <constraint firstItem="r4D-oJ-cdO" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" multiplier="1.05" id="2nK-6L-LgL"/>
                             <constraint firstItem="zWn-iU-ggV" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="85e-9a-IwI"/>
                             <constraint firstItem="zWn-iU-ggV" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="DcS-Pm-kzV"/>
+                            <constraint firstItem="r4D-oJ-cdO" firstAttribute="width" secondItem="oBE-Ac-vcx" secondAttribute="width" id="Gxu-v3-8md"/>
                             <constraint firstItem="oBE-Ac-vcx" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="HiD-uS-i16"/>
                             <constraint firstItem="icb-Ue-WKT" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Jry-Bw-Ww1"/>
                             <constraint firstAttribute="trailing" secondItem="zWn-iU-ggV" secondAttribute="trailing" id="WQq-Tg-14P"/>
-                            <constraint firstItem="oBE-Ac-vcx" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" multiplier="1.2" id="YgX-7e-bMc"/>
+                            <constraint firstItem="DMC-3B-Weh" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="XKy-G7-BwY"/>
+                            <constraint firstItem="oBE-Ac-vcx" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" multiplier="1.3" id="YgX-7e-bMc"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="zWn-iU-ggV" secondAttribute="bottom" id="ZQa-ld-MKp"/>
+                            <constraint firstItem="DMC-3B-Weh" firstAttribute="width" secondItem="r4D-oJ-cdO" secondAttribute="width" id="cRY-hv-E3B"/>
                             <constraint firstItem="oBE-Ac-vcx" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" multiplier="0.8" id="cx8-Iz-qmi"/>
+                            <constraint firstItem="DMC-3B-Weh" firstAttribute="top" secondItem="r4D-oJ-cdO" secondAttribute="bottom" id="eO5-2m-Uvo"/>
+                            <constraint firstItem="r4D-oJ-cdO" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="j9t-1f-jwd"/>
                             <constraint firstItem="icb-Ue-WKT" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" multiplier="0.6" id="kSq-iz-Ki4"/>
+                            <constraint firstItem="r4D-oJ-cdO" firstAttribute="height" secondItem="oBE-Ac-vcx" secondAttribute="height" id="mrq-wU-Zqk"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="btnLogin" destination="oBE-Ac-vcx" id="name-outlet-oBE-Ac-vcx"/>
                         <outlet property="imgLogo" destination="icb-Ue-WKT" id="name-outlet-icb-Ue-WKT"/>
+                        <outlet property="txtEmail" destination="r4D-oJ-cdO" id="name-outlet-r4D-oJ-cdO"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1068" y="-70"/>
+            <point key="canvasLocation" x="-1068" y="-70.61469"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="12">
@@ -252,13 +274,13 @@
                     <navigationItem key="navigationItem" id="3fJ-YD-ZsO"/>
                     <connections>
                         <outlet property="LTWebView" destination="t6S-1q-iDf" id="name-outlet-t6S-1q-iDf"/>
+                        <outlet property="_ProgressBar" destination="BsM-NN-JB3" id="name-outlet-BsM-NN-JB3"/>
                         <outlet property="heightMenu" destination="EO8-w3-tSl" id="name-outlet-EO8-w3-tSl"/>
                         <outlet property="imgLogo" destination="7is-1B-sMK" id="name-outlet-7is-1B-sMK"/>
                         <outlet property="lblBuiltWith" destination="g0q-sw-YEW" id="name-outlet-g0q-sw-YEW"/>
                         <outlet property="lblLogOut" destination="VJ9-4N-MUz" id="name-outlet-VJ9-4N-MUz"/>
                         <outlet property="lblStartPage" destination="Ybb-oE-0k0" id="name-outlet-Ybb-oE-0k0"/>
                         <outlet property="menuContent" destination="KRD-Cy-4Bs" id="name-outlet-KRD-Cy-4Bs"/>
-                        <outlet property="_ProgressBar" destination="BsM-NN-JB3" id="name-outlet-BsM-NN-JB3"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aEz-bg-ihi" userLabel="First Responder" sceneMemberID="firstResponder"/>

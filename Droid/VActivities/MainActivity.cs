@@ -4,6 +4,7 @@ using Android.OS;
 using Android.Content;
 using Android.Views;
 using Android.Content.PM;
+using System;
 
 namespace LiveTiles.Droid
 {
@@ -20,17 +21,11 @@ namespace LiveTiles.Droid
 
 			if (AppStatus.IsLoggedIn == true)
 			{
-				var activity = new Intent(this, typeof(LiveTilesHomeAC));
-				StartActivityForResult(activity, 1);
+				LoginWithEmail(string.Empty);
 			}
 			// Get our button from the layout resource,
 			// and attach an event to it
-			Button button = FindViewById<Button>(Resource.Id.btnLogin);
-
-			button.Click += delegate { 
-				var activity = new Intent(this, typeof(LiveTilesHomeAC));
-				StartActivityForResult(activity, 1);
-			};
+			FindViewById(Resource.Id.btnLogin).Click += ActionLogin;
 
 			SetUIStyle();
 		}
@@ -53,6 +48,37 @@ namespace LiveTiles.Droid
 				)
 			);
 			FindViewById<ImageView>(Resource.Id.imgLogo).SetImageResource(Resource.Drawable.icon_logo);
+		}
+
+		void ActionLogin(object sender, EventArgs e)
+		{
+			var txtEmail = FindViewById<EditText>(Resource.Id.txtEmail).Text;
+
+			if (String.IsNullOrEmpty(txtEmail))
+			{
+				var alert = new AlertDialog.Builder(this);
+				alert.SetTitle("");
+				alert.SetMessage(AppSettings.MSG_INVALID_EMAIL);
+				alert.SetCancelable(false);
+				alert.SetPositiveButton("OK", delegate
+				{
+				});
+				RunOnUiThread(() =>
+				{
+					alert.Show();
+				});
+
+				return;
+			}
+
+			LoginWithEmail(txtEmail);
+		}
+
+		void LoginWithEmail(string email)
+		{
+			var activity = new Intent(this, typeof(LiveTilesHomeAC));
+			activity.PutExtra("EMAIL", email);
+			StartActivityForResult(activity, 1);
 		}
 	}
 }

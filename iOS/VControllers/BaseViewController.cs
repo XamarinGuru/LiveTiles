@@ -23,6 +23,16 @@ namespace LiveTiles.iOS
 			InvokeOnMainThread(() => { BTProgressHUD.Dismiss(); });
 		}
 
+		protected void ShowMessageBox(string title, string message, bool isFinish = false)
+		{
+			InvokeOnMainThread(() =>
+			{
+				var alertView = new UIAlertView(title, message, null, "Ok", null);
+				alertView.Clicked += (sender, e) => { };
+				alertView.Show();
+			});
+		}
+
 		public UIColor ColorFromValue(string hexColor)
 		{
 			var red = Convert.ToInt32(hexColor.Substring(0, 2), 16) / 255f;

@@ -23,5 +23,20 @@ namespace LiveTiles.Droid
 				editor.Apply();
 			}
 		}
+
+		private const string latestURL = "latestURL";
+		public static string LatestURL
+		{
+			get
+			{
+				return _appSettings.GetString(latestURL, "");
+			}
+			set
+			{
+				ISharedPreferencesEditor editor = _appSettings.Edit();
+				editor.PutString(latestURL, value);
+				editor.Apply();
+			}
+		}
 	}
 }

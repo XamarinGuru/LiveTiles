@@ -12,13 +12,40 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:id="@+id/linearLayout1"
-        android:layout_weight="2"
+        android:layout_weight="1.5"
         android:gravity="center">
         <ImageView
             android:src="@drawable/icon_logo"
             android:layout_width="200dp"
             android:layout_height="100dp"
             android:id="@+id/imgLogo" />
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="vertical"
+        android:minWidth="25px"
+        android:minHeight="25px"
+        android:id="@+id/linearLayout3"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.5"
+        android:gravity="center">
+        <EditText
+            android:layout_width="290dp"
+            android:layout_height="50dp"
+            android:id="@+id/txtEmail"
+            android:gravity="bottom"
+            android:singleLine="true"
+            android:background="@android:color/transparent"
+            android:layout_marginBottom="5dp"
+            android:hint="Email address" />
+        <LinearLayout
+            android:orientation="horizontal"
+            android:minWidth="25px"
+            android:minHeight="25px"
+            android:layout_width="300dp"
+            android:layout_height="1dp"
+            android:id="@+id/linearLayout4"
+            android:background="#ffffffff" />
     </LinearLayout>
     <LinearLayout
         android:orientation="horizontal"

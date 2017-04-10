@@ -75,6 +75,8 @@ namespace LiveTiles.Droid
 			FindViewById<LinearLayout>(Resource.Id.ActionStartPage).Click += ActionStartPage;
 			FindViewById<LinearLayout>(Resource.Id.ActionLogOut).Click += ActionLogOut;
 
+			string email = Intent.GetStringExtra("EMAIL");
+
 			LTWebView = FindViewById<WebView>(Resource.Id.LTWebView);
 
 			LTWebView.Settings.JavaScriptEnabled = true;
@@ -86,9 +88,17 @@ namespace LiveTiles.Droid
 			LTWebView.SetBackgroundColor(Color.Transparent);
 
 			var linearProgress = FindViewById<LinearLayout>(Resource.Id.linearProgress);
-			LTWebView.SetWebViewClient(new MMWebViewClient(this, _navBar, isLoggedOut, linearProgress));
+			LTWebView.SetWebViewClient(new MMWebViewClient(this, _navBar, isLoggedOut, linearProgress, email));
 
-			LTWebView.LoadUrl(AppSettings.URL_BASE);
+			var url = AppStatus.LatestURL;
+			if (!string.IsNullOrEmpty(email))
+			{
+				url = email.Equals(AppSettings.DEMO_EMAIL) ? AppSettings.URL_DEMO : AppSettings.URL_BASE;
+				AppStatus.LatestURL = url;
+
+			}
+			LTWebView.SetWebChromeClient(new MMWebChromeClient(this, _navBar, isLoggedOut, linearProgress, email));
+			LTWebView.LoadUrl(url);
 		}
 
 
@@ -122,7 +132,7 @@ namespace LiveTiles.Droid
 
 		void ActionLogOut(object sender, EventArgs e)
 		{
-			LTWebView.LoadUrl(AppSettings.URL_LOGOUT);
+			LTWebView.LoadUrl(AppSettings.URL_BASE);
 			SettingsMenuAnimation();
 
 			CookieSyncManager.CreateInstance(this);
@@ -140,6 +150,7 @@ namespace LiveTiles.Droid
 			isLoggedOut = true;
 			_navBar.Visibility = ViewStates.Gone;
 			AppStatus.IsLoggedIn = false;
+			Finish();
 		}
 
 
@@ -192,19 +203,75 @@ namespace LiveTiles.Droid
 			AndHUD.Shared.Dismiss(this);
 		}
 
-		private class MMWebViewClient : WebViewClient
+		private class MMWebChromeClient : WebChromeClient
 		{
 			LiveTilesHomeAC _act;
 			LinearLayout _navBar;
 			LinearLayout _ProgressBar;
+			string _email;
 			bool _isLoggedOut = false;
 
-			public MMWebViewClient(LiveTilesHomeAC act, LinearLayout navBar, bool isLoggedOut, LinearLayout linearProgress)
+			public MMWebChromeClient(LiveTilesHomeAC act, LinearLayout navBar, bool isLoggedOut, LinearLayout linearProgress, string email)
 			{
 				_act = act;
 				_navBar = navBar;
 				_ProgressBar = linearProgress;
 				_isLoggedOut = isLoggedOut;
+				_email = email;
+			}
+
+			public override void OnProgressChanged(WebView view, int newProgress)
+			{
+				base.OnProgressChanged(view, newProgress);
+
+				var url = view.Url;
+				if (newProgress > 50)
+				{
+					if (_ProgressBar != null)
+					{
+						_ProgressBar.Visibility = ViewStates.Gone;
+					}
+
+					if (_act.isLoggedOut) return;
+
+					CookieSyncManager.Instance.Sync();
+
+					if (url.Contains(Constants.SYMBOL_LOGIN))
+					{
+						_navBar.Visibility = ViewStates.Gone;
+						AppStatus.IsLoggedIn = false;
+
+						view.LoadUrl(string.Format(Constants.INJECT_JS_FILL_EMAIL, _email));
+					}
+					else
+					{
+						_navBar.Visibility = ViewStates.Visible;
+						AppStatus.IsLoggedIn = true;
+					}
+
+					string cssString = Constants.INJECT_CSS_HIDE_TOP_BAR;
+					string jsString = Constants.INJECT_JS_HIDE_BOTTOM_BAR;
+					string jsWithCSS = string.Format(jsString, cssString);
+					view.EvaluateJavascript(jsWithCSS, null);
+				}
+			}
+		}
+
+		private class MMWebViewClient : WebViewClient
+		{
+			LiveTilesHomeAC _act;
+			LinearLayout _navBar;
+			LinearLayout _ProgressBar;
+			string _email;
+			bool _isLoggedOut = false;
+
+			public MMWebViewClient(LiveTilesHomeAC act, LinearLayout navBar, bool isLoggedOut, LinearLayout linearProgress, string email)
+			{
+				_act = act;
+				_navBar = navBar;
+				_ProgressBar = linearProgress;
+				_isLoggedOut = isLoggedOut;
+				_email = email;
 			}
 
 			public override void OnPageStarted(WebView view, String url, Bitmap favicon)
@@ -219,35 +286,52 @@ namespace LiveTiles.Droid
 				//_act.ShowLoadingView();
 			}
 
+			public override void OnReceivedError(WebView view, IWebResourceRequest request, WebResourceError error)
+			{
+				base.OnReceivedError(view, request, error);
+			}
+
+			public override bool ShouldOverrideUrlLoading(WebView view, IWebResourceRequest request)
+			{
+				return base.ShouldOverrideUrlLoading(view, request);
+			}
+			//public override bool ShouldOverrideUrlLoading(WebView view, string url)
+			//{
+			//	view.LoadUrl(url);
+			//	return true;
+			//}
+
 			public override void OnPageFinished(WebView view, String url)
 			{
 				base.OnPageFinished(view, url);
 
-				if (_ProgressBar != null)
-				{
-					_ProgressBar.Visibility = ViewStates.Gone;
-				}
+				//if (_ProgressBar != null)
+				//{
+				//	_ProgressBar.Visibility = ViewStates.Gone;
+				//}
 
-				if (_act.isLoggedOut) return;
-				//HideLoadingView()
+				//if (_act.isLoggedOut) return;
+				////HideLoadingView()
 
-				CookieSyncManager.Instance.Sync();
+				//CookieSyncManager.Instance.Sync();
 
-				if (url.Contains(Constants.SYMBOL_LOGIN))
-				{
-					_navBar.Visibility = ViewStates.Gone;
-					AppStatus.IsLoggedIn = false;
-				}
-				else
-				{
-					_navBar.Visibility = ViewStates.Visible;
-					AppStatus.IsLoggedIn = true;
-				}
+				//if (url.Contains(Constants.SYMBOL_LOGIN))
+				//{
+				//	_navBar.Visibility = ViewStates.Gone;
+				//	AppStatus.IsLoggedIn = false;
 
-				string cssString = Constants.INJECT_CSS;
-				string jsString = Constants.INJECT_JS;
-				string jsWithCSS = string.Format(jsString, cssString);
-				view.EvaluateJavascript(jsWithCSS, null);
+				//	view.LoadUrl(string.Format(Constants.INJECT_JS_FILL_EMAIL, _email));
+				//}
+				//else
+				//{
+				//	_navBar.Visibility = ViewStates.Visible;
+				//	AppStatus.IsLoggedIn = true;
+				//}
+
+				//string cssString = Constants.INJECT_CSS_HIDE_TOP_BAR;
+				//string jsString = Constants.INJECT_JS_HIDE_BOTTOM_BAR;
+				//string jsWithCSS = string.Format(jsString, cssString);
+				//view.EvaluateJavascript(jsWithCSS, null);
 
 				//_act.HideLoadingView();
 			}

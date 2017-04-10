@@ -8,6 +8,8 @@ namespace LiveTiles.iOS
 {
 	public partial class LiveTilesHomeVC : BaseViewController
 	{
+		public string _email;
+
 		bool hasMenu = false;
 		bool isLoggedOut = false;
 
@@ -24,10 +26,18 @@ namespace LiveTiles.iOS
 
 			InitUISettings();
 
-			LTWebView.ShouldStartLoad += HandleShouldStartLoad;
+			LTWebView.LoadStarted += HandleLoadStarted;
+			LTWebView.LoadError += HandleLoadError;
 			LTWebView.LoadFinished += HandleLoadFinished;
 
-			LTWebView.LoadRequest(new NSUrlRequest(new NSUrl(AppSettings.URL_BASE)));
+			var url = AppStatus.LatestURL;
+			if (!string.IsNullOrEmpty(_email))
+			{
+				url = _email.Equals(AppSettings.DEMO_EMAIL) ? AppSettings.URL_DEMO : AppSettings.URL_BASE;
+				AppStatus.LatestURL = url;
+			}
+
+			LTWebView.LoadRequest(new NSUrlRequest(new NSUrl(url)));
 		}
 
 		void InitUISettings()
@@ -95,13 +105,13 @@ namespace LiveTiles.iOS
 
 		partial void ActionStartPage(UIButton sender)
 		{
-			LTWebView.LoadRequest(new NSUrlRequest(new NSUrl(AppSettings.URL_BASE)));
+			LTWebView.LoadRequest(new NSUrlRequest(new NSUrl(AppStatus.LatestURL)));
 			CloseMenu();
 		}
 
 		partial void ActionLogOut(UIButton sender)
 		{
-			LTWebView.LoadRequest(new NSUrlRequest(new NSUrl(AppSettings.URL_LOGOUT)));
+			LTWebView.LoadRequest(new NSUrlRequest(new NSUrl(AppStatus.LatestURL)));
 
 			NSUrlCache.SharedCache.RemoveAllCachedResponses();
 			foreach (NSHttpCookie cookie in NSHttpCookieStorage.SharedStorage.Cookies)
@@ -112,12 +122,16 @@ namespace LiveTiles.iOS
 			NavigationController.NavigationBar.Hidden = true;
 			AppStatus.IsLoggedIn = false;
 			CloseMenu();
+
+			LoginVC ltNVC = Storyboard.InstantiateViewController("LoginVC") as LoginVC;
+			this.PresentViewController(ltNVC, true, null);
 		}
 
 
 		#region webview delegate
-		bool HandleShouldStartLoad(UIWebView webView, NSUrlRequest request, UIWebViewNavigationType navigationType)
+		void HandleLoadStarted(object sender, EventArgs e)
 		{
+			var b = (sender as UIWebView).IsLoading;
 			_ProgressBar.Hidden = false;
 
 			//var strURL = request.Url.AbsoluteString;
@@ -126,28 +140,39 @@ namespace LiveTiles.iOS
 			//	NavigationController.NavigationBar.Hidden = true;
 			//else
 			//	NavigationController.NavigationBar.Hidden = false;
-			return true;
+		}
+
+		void HandleLoadError(object sender, UIWebErrorArgs e)
+		{
+			_ProgressBar.Hidden = true;
 		}
 
 		void HandleLoadFinished(object sender, EventArgs e)
 		{
+			//var b = (sender as UIWebView).IsLoading;
 			_ProgressBar.Hidden = true;
 
 			if (isLoggedOut) return;
-			//HideLoadingView();
+
 			bool isLoggedIn;
 			var strURL = LTWebView.Request.Url.AbsoluteString;
 
 			if (strURL.Contains(Constants.SYMBOL_LOGIN))
+			{
 				isLoggedIn = false;
+
+				LTWebView.EvaluateJavascript(string.Format(Constants.INJECT_JS_FILL_EMAIL, _email));
+			}
 			else
+			{
 				isLoggedIn = true;
+			}
 
 			NavigationController.NavigationBar.Hidden = !isLoggedIn;
 			AppStatus.IsLoggedIn = isLoggedIn;
 
-			string cssString = Constants.INJECT_CSS;
-			string jsString = Constants.INJECT_JS;
+			string cssString = Constants.INJECT_CSS_HIDE_TOP_BAR;
+			string jsString = Constants.INJECT_JS_HIDE_BOTTOM_BAR;
 			string jsWithCSS = string.Format(jsString, cssString);
 			LTWebView.EvaluateJavascript(jsWithCSS);
 

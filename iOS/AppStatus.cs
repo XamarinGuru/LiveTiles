@@ -14,5 +14,15 @@ namespace LiveTiles.iOS
 				NSUserDefaults.StandardUserDefaults.SetBool(value, isLoggedIn);
 			}
 		}
+
+		private const string latestURL = "latestURL";
+		public static string LatestURL
+		{
+			get { return NSUserDefaults.StandardUserDefaults.StringForKey(latestURL); }
+			set
+			{
+				NSUserDefaults.StandardUserDefaults.SetString(value, latestURL);
+			}
+		}
 	}
 }

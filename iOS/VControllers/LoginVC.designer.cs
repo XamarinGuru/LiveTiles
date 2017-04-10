@@ -22,6 +22,10 @@ namespace LiveTiles.iOS
         [GeneratedCode ("iOS Designer", "1.0")]
         UIKit.UIImageView imgLogo { get; set; }
 
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
+        UIKit.UITextField txtEmail { get; set; }
+
         [Action ("ActionLogin:")]
         [GeneratedCode ("iOS Designer", "1.0")]
         partial void ActionLogin (UIKit.UIButton sender);
@@ -36,6 +40,11 @@ namespace LiveTiles.iOS
             if (imgLogo != null) {
                 imgLogo.Dispose ();
                 imgLogo = null;
+            }
+
+            if (txtEmail != null) {
+                txtEmail.Dispose ();
+                txtEmail = null;
             }
         }
     }
