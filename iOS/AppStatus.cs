@@ -1,5 +1,6 @@
 ﻿using System;
 using Foundation;
+using Newtonsoft.Json;
 
 namespace LiveTiles.iOS
 {
@@ -22,6 +23,28 @@ namespace LiveTiles.iOS
 			set
 			{
 				NSUserDefaults.StandardUserDefaults.SetString(value, latestURL);
+			}
+		}
+
+		private const string mxData = "mxData";
+		public static MxData MxData
+		{
+			get 
+			{
+				try
+				{
+					var strMxData = NSUserDefaults.StandardUserDefaults.StringForKey(mxData);
+					return JsonConvert.DeserializeObject<MxData>(strMxData);
+				}
+				catch (Exception ex)
+				{
+					return null;
+				}
+			}
+			set
+			{
+				var strMxData = JsonConvert.SerializeObject(value);
+				NSUserDefaults.StandardUserDefaults.SetString(strMxData, mxData);
 			}
 		}
 	}

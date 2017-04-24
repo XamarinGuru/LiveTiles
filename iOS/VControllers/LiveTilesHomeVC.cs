@@ -30,14 +30,14 @@ namespace LiveTiles.iOS
 			LTWebView.LoadError += HandleLoadError;
 			LTWebView.LoadFinished += HandleLoadFinished;
 
-			var url = AppStatus.LatestURL;
-			if (!string.IsNullOrEmpty(_email))
-			{
-				url = _email.Equals(AppSettings.DEMO_EMAIL) ? AppSettings.URL_DEMO : AppSettings.URL_BASE;
-				AppStatus.LatestURL = url;
-			}
+			var homepageURL = new NSUrlRequest(new NSUrl(AppStatus.MxData.homepageURL));
+			//if (!string.IsNullOrEmpty(_email))
+			//{
+			//	url = _email.Equals(AppSettings.DEMO_EMAIL) ? AppSettings.URL_DEMO : AppSettings.URL_BASE;
+			//	AppStatus.LatestURL = url;
+			//}
 
-			LTWebView.LoadRequest(new NSUrlRequest(new NSUrl(url)));
+			LTWebView.LoadRequest(homepageURL);
 		}
 
 		void InitUISettings()
@@ -121,6 +121,7 @@ namespace LiveTiles.iOS
 			isLoggedOut = true;
 			NavigationController.NavigationBar.Hidden = true;
 			AppStatus.IsLoggedIn = false;
+			AppStatus.MxData = null;
 			CloseMenu();
 
 			LoginVC ltNVC = Storyboard.InstantiateViewController("LoginVC") as LoginVC;
@@ -157,11 +158,11 @@ namespace LiveTiles.iOS
 			bool isLoggedIn;
 			var strURL = LTWebView.Request.Url.AbsoluteString;
 
-			if (strURL.Contains(Constants.SYMBOL_LOGIN))
+			if (strURL.Contains(AppSettings.SYMBOL_LOGIN))
 			{
 				isLoggedIn = false;
 
-				LTWebView.EvaluateJavascript(string.Format(Constants.INJECT_JS_FILL_EMAIL, _email));
+				LTWebView.EvaluateJavascript(string.Format(AppSettings.INJECT_JS_FILL_EMAIL, _email));
 			}
 			else
 			{
@@ -171,8 +172,8 @@ namespace LiveTiles.iOS
 			NavigationController.NavigationBar.Hidden = !isLoggedIn;
 			AppStatus.IsLoggedIn = isLoggedIn;
 
-			string cssString = Constants.INJECT_CSS_HIDE_TOP_BAR;
-			string jsString = Constants.INJECT_JS_HIDE_BOTTOM_BAR;
+			string cssString = AppSettings.INJECT_CSS_HIDE_TOP_BAR;
+			string jsString = AppSettings.INJECT_JS_HIDE_BOTTOM_BAR;
 			string jsWithCSS = string.Format(jsString, cssString);
 			LTWebView.EvaluateJavascript(jsWithCSS);
 

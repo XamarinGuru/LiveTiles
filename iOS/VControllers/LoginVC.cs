@@ -24,9 +24,9 @@ namespace LiveTiles.iOS
 		{
 			base.ViewDidAppear(animated);
 
-			if (AppStatus.IsLoggedIn == true)
+			if (AppStatus.IsLoggedIn == true && AppStatus.MxData != null)
 			{
-				LoginWithEmail(string.Empty);
+				GoToMainVC(string.Empty);
 			}
 		}
 
@@ -42,18 +42,32 @@ namespace LiveTiles.iOS
 			imgLogo.Image = UIImage.FromFile(AppSettings.LOGO_IMG_NAME);
 		}
 
-		partial void ActionLogin(UIButton sender)
+		async partial void ActionLogin(UIButton sender)
 		{
 			if (String.IsNullOrEmpty(txtEmail.Text))
+			{
+				ShowMessageBox(null, AppSettings.MSG_EMPTY_EMAIL);
+				return;
+			}
+
+			ShowLoadingView(AppSettings.MSG_LOADING);
+
+			var mxData = await GlobalFunctions.GetMXData(txtEmail.Text);
+
+			HideLoadingView();
+
+			if (mxData == null)
 			{
 				ShowMessageBox(null, AppSettings.MSG_INVALID_EMAIL);
 				return;
 			}
 
-			LoginWithEmail(txtEmail.Text);
+			AppStatus.MxData = mxData;
+
+			GoToMainVC(txtEmail.Text);
 		}
 
-		void LoginWithEmail(string email)
+		void GoToMainVC(string email)
 		{
 			UINavigationController ltNVC = Storyboard.InstantiateViewController("LiveTilesNVC") as UINavigationController;
 			(ltNVC.TopViewController as LiveTilesHomeVC)._email = email;

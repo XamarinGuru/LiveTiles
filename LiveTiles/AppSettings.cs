@@ -40,17 +40,7 @@ namespace LiveTiles
 		/// </summary>
 		#endregion
 
-		//public static string URL_BASE = "https://trylivetiles.sharepoint.com/sites/workplace1000/SitePages/Trial_Mobile_View.aspx";
-		//public static string URL_BASE = "https://trylivetiles.sharepoint.com/sites/workplace1000";
-		//public static string URL_BASE = "https://getlivetiles.sharepoint.com";
-
-		#region the url for demo account of apple review
-		public static string URL_DEMO = "https://trylivetiles.sharepoint.com/sites/workplace1000/sitepages/Andy.aspx";
-		#endregion
-
-		#region the url for normal user
-		public static string URL_BASE = "https://trylivetiles.sharepoint.com/sites/workplace1000/sitepages/Andy.aspx";
-		#endregion
+		public static string URL_MXDATA = "https://livetiles-staging.s3.amazonaws.com/mx-data/{0}/mxdata.json";
 		//public static string URL_LOGOUT = "https://getlivetiles.sharepoint.com";
 
 		public static string COLOR_LOGIN_BACKGROUND = "1CB4E9";
@@ -63,6 +53,15 @@ namespace LiveTiles
 		public static string LOGO_IMG_NAME = "icon_logo.png";
 
 		public static string DEMO_EMAIL = "jun.lee@trylivetiles.onmicrosoft.com";
-		public static string MSG_INVALID_EMAIL = "Please input your email.";
+
+		public static string MSG_LOADING = "Loading...";
+		public static string MSG_EMPTY_EMAIL = "Please input your email.";
+		public static string MSG_INVALID_EMAIL = "Your email is not vaild.";
+
+
+		public static string INJECT_JS_HIDE_BOTTOM_BAR = "var style = document.createElement('style'); style.innerHTML = '{0}'; document.head.appendChild(style);$('#suiteBarToggle').append('<i style=\"color:#000; float: right; font-size: 24px;\" class=\"show-ribbon fa fa-caret-down\" aria-hidden=\"true\"></i><i style=\"color:#000; float: right; font-size: 24px; display: none;\" class=\"hide-ribbon fa fa-caret-up\" aria-hidden=\"true\"></i>');\n$('#suiteBarDelta').hide();\n$('#s4-ribbonrow').hide();\n$('#s4-workspace').height($('#s4-workspace').height()+90);";
+		public static string INJECT_CSS_HIDE_TOP_BAR = "@media only screen and (max-width: 748px) {#suiteBarDelta, #s4-ribbonrow{display:none;}}";
+		public static string INJECT_JS_FILL_EMAIL = "javascript:document.getElementById('cred_userid_inputtext').value ='{0}';";
+		public static string SYMBOL_LOGIN = "login.microsoftonline.com";
 	}
 }
