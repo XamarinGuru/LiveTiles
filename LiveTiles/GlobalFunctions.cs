@@ -17,7 +17,8 @@ namespace LiveTiles
 			try
             {
 				string[] words = email.Split('@');
-				return words[1];
+				string mxEmailDomain = words[1];
+				return AppSettings.MXEMAIL_VS_DOMAIN[mxEmailDomain];
             }
             catch (Exception exception)
             {

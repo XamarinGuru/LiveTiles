@@ -1,6 +1,7 @@
 ﻿using System;
 using Android.App;
 using Android.Content;
+using Newtonsoft.Json;
 
 namespace LiveTiles.Droid
 {
@@ -35,6 +36,30 @@ namespace LiveTiles.Droid
 			{
 				ISharedPreferencesEditor editor = _appSettings.Edit();
 				editor.PutString(latestURL, value);
+				editor.Apply();
+			}
+		}
+
+		private const string mxData = "mxData";
+		public static MxData MxData
+		{
+			get
+			{
+				try
+				{
+					var strMxData = _appSettings.GetString(mxData, mxData);
+					return JsonConvert.DeserializeObject<MxData>(strMxData);
+				}
+				catch (Exception ex)
+				{
+					return null;
+				}
+			}
+			set
+			{
+				var strMxData = JsonConvert.SerializeObject(value);
+				ISharedPreferencesEditor editor = _appSettings.Edit();
+				editor.PutString(mxData, strMxData);
 				editor.Apply();
 			}
 		}

@@ -13,6 +13,8 @@ namespace LiveTiles.iOS
 		bool hasMenu = false;
 		bool isLoggedOut = false;
 
+		UINavigationBar _navBar;
+
 		public LiveTilesHomeVC() : base()
 		{
 		}
@@ -30,14 +32,15 @@ namespace LiveTiles.iOS
 			LTWebView.LoadError += HandleLoadError;
 			LTWebView.LoadFinished += HandleLoadFinished;
 
-			var homepageURL = new NSUrlRequest(new NSUrl(AppStatus.MxData.homepageURL));
-			//if (!string.IsNullOrEmpty(_email))
-			//{
-			//	url = _email.Equals(AppSettings.DEMO_EMAIL) ? AppSettings.URL_DEMO : AppSettings.URL_BASE;
-			//	AppStatus.LatestURL = url;
-			//}
+			//var homepageURL = new NSUrlRequest(new NSUrl(AppStatus.MxData.homepageURL));
+			var homepageURL = AppStatus.LatestURL;
+			if (AppStatus.MxData != null && !string.IsNullOrEmpty(AppStatus.MxData.homepageURL))
+			{
+				homepageURL = AppStatus.MxData.homepageURL;
+				AppStatus.LatestURL = AppStatus.MxData.homepageURL;
+			}
 
-			LTWebView.LoadRequest(homepageURL);
+			LTWebView.LoadRequest(new NSUrlRequest(new NSUrl(homepageURL)));
 		}
 
 		void InitUISettings()
@@ -58,11 +61,13 @@ namespace LiveTiles.iOS
 			//settings button
 			var iconSettings = new UIButton(new CGRect(0, 0, 20, 20));
 			iconSettings.SetImage(UIImage.FromFile("icon_settings.png"), UIControlState.Normal);
-			iconSettings.TouchUpInside += (sender, e) => GoToSettings();
+			iconSettings.TouchUpInside += (sender, e) => SettingsMenuAnimation();
 
 			UIBarButtonItem[] rightButtons = { new UIBarButtonItem(iconSettings), new UIBarButtonItem(iconReload) };
 
 			NavigationItem.RightBarButtonItems = rightButtons;
+
+			_navBar = NavigationController.NavigationBar;
 
 			imgLogo.Image = UIImage.FromFile(AppSettings.LOGO_IMG_NAME);
 
@@ -75,7 +80,7 @@ namespace LiveTiles.iOS
 			lblBuiltWith.TextColor = ColorFromValue(AppSettings.COLOR_MENU_TEXT_BACKGROUND);
 		}
 
-		void GoToSettings()
+		void SettingsMenuAnimation()
 		{
 			this.View.LayoutIfNeeded();
 			menuContent.LayoutIfNeeded();
@@ -155,22 +160,20 @@ namespace LiveTiles.iOS
 
 			if (isLoggedOut) return;
 
-			bool isLoggedIn;
 			var strURL = LTWebView.Request.Url.AbsoluteString;
 
 			if (strURL.Contains(AppSettings.SYMBOL_LOGIN))
 			{
-				isLoggedIn = false;
+				_navBar.Hidden = true;
+				AppStatus.IsLoggedIn = false;
 
 				LTWebView.EvaluateJavascript(string.Format(AppSettings.INJECT_JS_FILL_EMAIL, _email));
 			}
 			else
 			{
-				isLoggedIn = true;
+				_navBar.Hidden = false;
+				AppStatus.IsLoggedIn = true;
 			}
-
-			NavigationController.NavigationBar.Hidden = !isLoggedIn;
-			AppStatus.IsLoggedIn = isLoggedIn;
 
 			string cssString = AppSettings.INJECT_CSS_HIDE_TOP_BAR;
 			string jsString = AppSettings.INJECT_JS_HIDE_BOTTOM_BAR;

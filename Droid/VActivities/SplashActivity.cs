@@ -1,4 +1,4 @@
-﻿using Android.App;
+using Android.App;
 using Android.OS;
 using System.Threading.Tasks;
 using Android.Content.PM;
@@ -20,7 +20,7 @@ namespace LiveTiles.Droid
 
 			Task startupWork = new Task(() =>
 			{
-				StartActivity(new Intent(this, typeof(MainActivity)));
+				StartActivity(new Intent(this, typeof(LoginAC)));
 				Finish();
 			});
 

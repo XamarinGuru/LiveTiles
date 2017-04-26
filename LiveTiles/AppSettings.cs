@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+
 namespace LiveTiles
 {
 	public class AppSettings
@@ -63,5 +65,11 @@ namespace LiveTiles
 		public static string INJECT_CSS_HIDE_TOP_BAR = "@media only screen and (max-width: 748px) {#suiteBarDelta, #s4-ribbonrow{display:none;}}";
 		public static string INJECT_JS_FILL_EMAIL = "javascript:document.getElementById('cred_userid_inputtext').value ='{0}';";
 		public static string SYMBOL_LOGIN = "login.microsoftonline.com";
+
+		public static Dictionary<String, String> MXEMAIL_VS_DOMAIN = new Dictionary<String, String>
+		{
+			{"trylivetiles.onmicrosoft.com", "trylivetiles.sharepoint.com" },
+			{"livetiles.nyc", "livetiles.nyc"}
+		};
 	}
 }

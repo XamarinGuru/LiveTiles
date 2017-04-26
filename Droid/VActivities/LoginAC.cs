@@ -9,7 +9,7 @@ using System;
 namespace LiveTiles.Droid
 {
 	[Activity(Label = "MainActivity", ConfigurationChanges = ConfigChanges.Orientation | ConfigChanges.ScreenSize)]
-	public class MainActivity : Activity
+	public class LoginAC : BaseVC
 	{
 		protected override void OnCreate(Bundle savedInstanceState)
 		{
@@ -50,26 +50,29 @@ namespace LiveTiles.Droid
 			FindViewById<ImageView>(Resource.Id.imgLogo).SetImageResource(Resource.Drawable.icon_logo);
 		}
 
-		void ActionLogin(object sender, EventArgs e)
+		async void ActionLogin(object sender, EventArgs e)
 		{
 			var txtEmail = FindViewById<EditText>(Resource.Id.txtEmail).Text;
 
 			if (String.IsNullOrEmpty(txtEmail))
 			{
-				var alert = new AlertDialog.Builder(this);
-				alert.SetTitle("");
-				alert.SetMessage(AppSettings.MSG_INVALID_EMAIL);
-				alert.SetCancelable(false);
-				alert.SetPositiveButton("OK", delegate
-				{
-				});
-				RunOnUiThread(() =>
-				{
-					alert.Show();
-				});
-
+				ShowMessageBox(null, AppSettings.MSG_INVALID_EMAIL);
 				return;
 			}
+
+            ShowLoadingView(AppSettings.MSG_LOADING);
+
+			var mxData = await GlobalFunctions.GetMXData(txtEmail);
+
+			HideLoadingView();
+
+			if (mxData == null)
+			{
+				ShowMessageBox(null, AppSettings.MSG_INVALID_EMAIL);
+				return;
+			}
+
+			AppStatus.MxData = mxData;
 
 			LoginWithEmail(txtEmail);
 		}
