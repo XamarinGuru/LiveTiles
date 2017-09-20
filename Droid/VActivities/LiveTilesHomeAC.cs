@@ -252,7 +252,7 @@ namespace LiveTiles.Droid
 						_navBar.Visibility = ViewStates.Gone;
 						AppSettings.IsLoggedIn = false;
 
-						view.LoadUrl(string.Format(Constants.JsFillEmail, _email));
+                        view.EvaluateJavascript(string.Format(Constants.JsFillEmail, _email), null);
 					}
 					else
 					{
