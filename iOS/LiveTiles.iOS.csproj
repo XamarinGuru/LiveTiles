@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -9,6 +9,7 @@
     <RootNamespace>LiveTiles.iOS</RootNamespace>
     <AssemblyName>LiveTiles.iOS</AssemblyName>
     <IPhoneResourcePrefix>Resources</IPhoneResourcePrefix>
+    <ReleaseVersion>1.0</ReleaseVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|iPhoneSimulator' ">
     <DebugSymbols>true</DebugSymbols>
@@ -27,6 +28,7 @@
     <MtouchHttpClientHandler>HttpClientHandler</MtouchHttpClientHandler>
     <MtouchTlsProvider>Default</MtouchTlsProvider>
     <PlatformTarget>x86</PlatformTarget>
+    <MtouchNoSymbolStrip>true</MtouchNoSymbolStrip>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhone' ">
     <DebugType>pdbonly</DebugType>
@@ -81,14 +83,14 @@
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
     <Reference Include="Xamarin.iOS" />
-    <Reference Include="BTProgressHUD">
-      <HintPath>..\Components\btprogresshud-1.20\lib\ios-unified\BTProgressHUD.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.IO.Compression" />
     <Reference Include="System.Net.Http" />
+    <Reference Include="BTProgressHUD">
+      <HintPath>..\Components\btprogresshud-1.20\lib\ios-unified\BTProgressHUD.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json">
-      <HintPath>..\packages\Newtonsoft.Json.10.0.2\lib\netstandard1.3\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\netstandard1.3\Newtonsoft.Json.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -98,14 +100,30 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Contents.json" />
-    <ImageAsset Include="Assets.xcassets\Contents.json" />
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\AppIcon.png" />
+    <ImageAsset Include="Assets.xcassets\Contents.json">
+      <InProject>false</InProject>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\AppIcon-1.appiconset\Contents.json">
+      <InProject>false</InProject>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\AppIcon-1.appiconset\appIcon29.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon-1.appiconset\appIcon58.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon-1.appiconset\appIcon87.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon-1.appiconset\appIcon80.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon-1.appiconset\appIcon120.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon-1.appiconset\appIcon57.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon-1.appiconset\appIcon114.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon-1.appiconset\appIcon180.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon-1.appiconset\appIcon40.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon-1.appiconset\appIcon50.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon-1.appiconset\appIcon100.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon-1.appiconset\appIcon72.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon-1.appiconset\appIcon144.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon-1.appiconset\appIcon76.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon-1.appiconset\appIcon152.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon-1.appiconset\appIcon167.png" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Resources\" />
-    <Folder Include="VControllers\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <InterfaceDefinition Include="LaunchScreen.storyboard" />
     <InterfaceDefinition Include="Main.storyboard" />
@@ -130,7 +148,7 @@
     <Compile Include="VControllers\BaseViewController.designer.cs">
       <DependentUpon>BaseViewController.cs</DependentUpon>
     </Compile>
-    <Compile Include="AppStatus.cs" />
+    <Compile Include="AppleAppSettings.cs" />
   </ItemGroup>
   <ItemGroup>
     <XamarinComponentReference Include="btprogresshud">
@@ -139,16 +157,71 @@
     </XamarinComponentReference>
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\icon_back.png" />
-    <BundleResource Include="Resources\icon_reload.png" />
-    <BundleResource Include="Resources\icon_settings.png" />
-    <BundleResource Include="Resources\AppIcon.png" />
-    <BundleResource Include="Resources\icon_home.png" />
-    <BundleResource Include="Resources\icon_logo.png" />
-    <BundleResource Include="Resources\icon_logout.png" />
-    <BundleResource Include="Resources\background.png" />
     <BundleResource Include="Resources\splash.png" />
-    <BundleResource Include="Resources\icon_progress.png" />
+    <BundleResource Include="Resources\LiveTilesMx_logo.png" />
+    <BundleResource Include="Resources\appicon-80.png" />
+    <BundleResource Include="Resources\appicon-120.png" />
+    <BundleResource Include="Resources\back-icon-white.png" />
+    <BundleResource Include="Resources\back-icon.png" />
+    <BundleResource Include="Resources\home-icon.png" />
+    <BundleResource Include="Resources\iTunesArtwork%403x.png" />
+    <BundleResource Include="Resources\livetiles-mx-black.png" />
+    <BundleResource Include="Resources\livetiles-mx-white.png" />
+    <BundleResource Include="Resources\logout-icon.png" />
+    <BundleResource Include="Resources\more-icon.png" />
+    <BundleResource Include="Resources\more-icon-white.png" />
+    <BundleResource Include="Resources\refresh-icon-white.png" />
+    <BundleResource Include="Resources\refresh-icon.png" />
+    <BundleResource Include="Resources\Fonts\Lato-Black.ttf" />
+    <BundleResource Include="Resources\Fonts\Lato-BlackItalic.ttf" />
+    <BundleResource Include="Resources\Fonts\Lato-Bold.ttf" />
+    <BundleResource Include="Resources\Fonts\Lato-BoldItalic.ttf" />
+    <BundleResource Include="Resources\Fonts\Lato-Hairline.ttf" />
+    <BundleResource Include="Resources\Fonts\Lato-HairlineItalic.ttf" />
+    <BundleResource Include="Resources\Fonts\Lato-Italic.ttf" />
+    <BundleResource Include="Resources\Fonts\Lato-Light.ttf" />
+    <BundleResource Include="Resources\Fonts\Lato-LightItalic.ttf" />
+    <BundleResource Include="Resources\Fonts\Lato.ttf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </BundleResource>
+    <BundleResource Include="Resources\Fonts\OFL.txt" />
+    <BundleResource Include="Resources\shadow.png" />
+    <BundleResource Include="Resources\shadow%402x.png" />
+    <BundleResource Include="Resources\back-icon-white%402x.png" />
+    <BundleResource Include="Resources\back-icon%402x.png" />
+    <BundleResource Include="Resources\home-icon%402x.png" />
+    <BundleResource Include="Resources\logout-icon%402x.png" />
+    <BundleResource Include="Resources\more-icon%402x.png" />
+    <BundleResource Include="Resources\refresh-icon-white%402x.png" />
+    <BundleResource Include="Resources\refresh-icon%402x.png" />
+    <BundleResource Include="Resources\appIcon29.png" />
+    <BundleResource Include="Resources\appIcon40.png" />
+    <BundleResource Include="Resources\appIcon50.png" />
+    <BundleResource Include="Resources\appIcon57.png" />
+    <BundleResource Include="Resources\appIcon58.png" />
+    <BundleResource Include="Resources\appIcon72.png" />
+    <BundleResource Include="Resources\appIcon76.png" />
+    <BundleResource Include="Resources\appIcon80.png" />
+    <BundleResource Include="Resources\appIcon87.png" />
+    <BundleResource Include="Resources\appIcon100.png" />
+    <BundleResource Include="Resources\appIcon114.png" />
+    <BundleResource Include="Resources\appIcon120.png" />
+    <BundleResource Include="Resources\appIcon144.png" />
+    <BundleResource Include="Resources\appIcon152.png" />
+    <BundleResource Include="Resources\appIcon167.png" />
+    <BundleResource Include="Resources\appIcon180.png" />
+    <BundleResource Include="Resources\appIcon512.png" />
+    <BundleResource Include="Resources\appIcon1024.png" />
+    <BundleResource Include="Resources\LiveTilesLight.png" />
+    <BundleResource Include="Resources\LiveTilesDark.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ITunesArtwork Include="iTunesArtwork" />
+    <ITunesArtwork Include="iTunesArtwork%402x" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\more-icon-white%402x.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
+  <Import Project="..\packages\NETStandard.Library.2.0.0\build\netstandard2.0\NETStandard.Library.targets" Condition="Exists('..\packages\NETStandard.Library.2.0.0\build\netstandard2.0\NETStandard.Library.targets')" />
 </Project>

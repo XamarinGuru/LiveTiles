@@ -11,6 +11,8 @@ namespace LiveTiles.Droid
 	[Activity(Label = "MainActivity", ConfigurationChanges = ConfigChanges.Orientation | ConfigChanges.ScreenSize)]
 	public class LoginAC : BaseVC
 	{
+        AndroidAppSettings _appSettings = AndroidAppSettings.Instance;
+
 		protected override void OnCreate(Bundle savedInstanceState)
 		{
 			Window.RequestFeature(WindowFeatures.NoTitle);
@@ -19,7 +21,7 @@ namespace LiveTiles.Droid
 			// Set our view from the "main" layout resource
 			SetContentView(Resource.Layout.Main);
 
-			if (AppStatus.IsLoggedIn == true)
+			if (_appSettings.IsLoggedIn == true)
 			{
 				LoginWithEmail(string.Empty);
 			}
@@ -32,22 +34,23 @@ namespace LiveTiles.Droid
 
 		void SetUIStyle()
 		{
-			//FindViewById<LinearLayout>(Resource.Id.background).SetBackgroundColor(
-			//	Android.Graphics.Color.ParseColor(
-			//		GlobalFunctions.AndroidColorFormat(AppSettings.COLOR_LOGIN_BACKGROUND)
-			//	)
-			//);
-			FindViewById<Button>(Resource.Id.btnLogin).SetTextColor(
+            FindViewById<LinearLayout>(Resource.Id.background).SetBackgroundColor(
+            	Android.Graphics.Color.ParseColor(
+            		Utils.AndroidColorFormat(_appSettings.FeatureColor)
+            	)
+            );
+            var btnLogin = FindViewById<Button>(Resource.Id.btnLogin);
+
+			btnLogin.SetTextColor(
 				Android.Graphics.Color.ParseColor(
-					GlobalFunctions.AndroidColorFormat(AppSettings.COLOR_LOGIN_BUTTON_BACKGROUND)
+					Utils.AndroidColorFormat(_appSettings.FeatureColor)
 				)
 			);
-			FindViewById<Button>(Resource.Id.btnLogin).SetBackgroundColor(
+			btnLogin.SetBackgroundColor(
 				Android.Graphics.Color.ParseColor(
-					GlobalFunctions.AndroidColorFormat(AppSettings.COLOR_LOGIN_BUTTON_TEXT_BACKGROUND)
-				)
-			);
-			FindViewById<ImageView>(Resource.Id.imgLogo).SetImageResource(Resource.Drawable.icon_logo);
+					Utils.AndroidColorFormat(_appSettings.BackgroundColorForTheme)
+                ));
+			// FindViewById<ImageView>(Resource.Id.imgLogo).SetImageResource(Resource.Drawable.icon_logo);
 		}
 
 		async void ActionLogin(object sender, EventArgs e)
@@ -56,23 +59,24 @@ namespace LiveTiles.Droid
 
 			if (String.IsNullOrEmpty(txtEmail))
 			{
-				ShowMessageBox(null, AppSettings.MSG_INVALID_EMAIL);
+				ShowMessageBox(null, Constants.InvalidEmailTxt);
 				return;
 			}
 
-            ShowLoadingView(AppSettings.MSG_LOADING);
+            ShowLoadingView(Constants.LoadingTxt);
 
-			var mxData = await GlobalFunctions.GetMXData(txtEmail);
+            var mxData = await MxData.LoadAsync(txtEmail);
 
 			HideLoadingView();
 
 			if (mxData == null)
 			{
-				ShowMessageBox(null, AppSettings.MSG_INVALID_EMAIL);
+				ShowMessageBox(null, Constants.InvalidEmailTxt);
 				return;
 			}
 
-			AppStatus.MxData = mxData;
+			_appSettings.MxData = mxData;
+            _appSettings.Save();
 
 			LoginWithEmail(txtEmail);
 		}

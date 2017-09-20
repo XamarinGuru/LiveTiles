@@ -8,16 +8,21 @@ namespace LiveTiles.iOS
 {
 	public partial class LiveTilesHomeVC : BaseViewController
 	{
+        const int _buttonDimensions = 40;
+
 		public string _email;
-
-		bool hasMenu = false;
-		bool isLoggedOut = false;
-
-		UINavigationBar _navBar;
+        bool _hasMenu = false;
+        bool _isLoggedOut = false;
+        nfloat _originalCenterY;
+        nfloat _offscreenCenterY;
+        AppleAppSettings _appSettings = AppleAppSettings.Instance;
+        string _url;
+        string _prevUrl;
 
 		public LiveTilesHomeVC() : base()
 		{
 		}
+
 		public LiveTilesHomeVC(IntPtr handle) : base(handle)
 		{
 		}
@@ -25,62 +30,104 @@ namespace LiveTiles.iOS
 		public override void ViewDidLoad()
 		{
 			base.ViewDidLoad();
-
-			InitUISettings();
-
+            
 			LTWebView.LoadStarted += HandleLoadStarted;
 			LTWebView.LoadError += HandleLoadError;
 			LTWebView.LoadFinished += HandleLoadFinished;
 
-			//var homepageURL = new NSUrlRequest(new NSUrl(AppStatus.MxData.homepageURL));
-			var homepageURL = AppStatus.LatestURL;
-			if (AppStatus.MxData != null && !string.IsNullOrEmpty(AppStatus.MxData.homepageURL))
-			{
-				homepageURL = AppStatus.MxData.homepageURL;
-				AppStatus.LatestURL = AppStatus.MxData.homepageURL;
-			}
+            _appSettings.Load();
 
+            InitUISettings();
+
+            var homepageURL = _appSettings.LatestUrl;
+			if (AppSettingsBase.OverrideUrl != null || _appSettings.MxData != null && !string.IsNullOrEmpty(_appSettings.MxData.homepageURL))
+			{
+				homepageURL = AppSettingsBase.OverrideUrl ?? _appSettings.MxData.homepageURL;
+				_appSettings.LatestUrl = homepageURL;
+			}
 			LTWebView.LoadRequest(new NSUrlRequest(new NSUrl(homepageURL)));
+		}
+        
+        public override void ViewDidLayoutSubviews()
+        {
+            base.ViewDidLayoutSubviews();
+
+            _originalCenterY = menuContent.Center.Y;
+            _offscreenCenterY = menuContent.Center.Y - (menuContent.Frame.Height + NavigationController.NavigationBar.Frame.Height + 20);
+
+            UIColor color = ColorFromValue(_appSettings.FeatureColor);
+            NavigationController.NavigationBar.BarTintColor = color;
+
+            ShowMenu(false);
+        }
+
+        string ReloadIconName()
+        {
+            // Menu icons are colored opposite of the theme
+            if (_appSettings.Theme == ThemeStyles.Light)
+                return "refresh-icon-white.png";
+            else
+                return "refresh-icon.png";
+        }
+
+        string BackIconName()
+        {
+			// Menu icons are colored opposite of the theme
+			if (_appSettings.Theme == ThemeStyles.Light)
+				return "back-icon-white.png";
+			else
+				return "back-icon.png";
+        }
+
+		string MoreIconName()
+		{
+			// Menu icons are colored opposite of the theme
+			if (_appSettings.Theme == ThemeStyles.Light)
+				return "more-icon-white.png";
+			else
+				return "more-icon.png";
 		}
 
 		void InitUISettings()
-		{
-			UINavigationBar.Appearance.BarTintColor = ColorFromValue(AppSettings.COLOR_LOGIN_BACKGROUND);
-			NavigationController.NavigationBar.Hidden = true;
+        {
+            // Back button
+            var leftButton = new UIButton(new CGRect(0, 0, _buttonDimensions, _buttonDimensions));
+            leftButton.SetImage(UIImage.FromFile(BackIconName()), UIControlState.Normal);
+            leftButton.TouchUpInside += (sender, e) => GoToBack();
+            NavigationItem.LeftBarButtonItem = new UIBarButtonItem(leftButton);
 
-			var leftButton = new UIButton(new CGRect(0, 0, 20, 20));
-			leftButton.SetImage(UIImage.FromFile("icon_back.png"), UIControlState.Normal);
-			leftButton.TouchUpInside += (sender, e) => GoToBack();
-			NavigationItem.LeftBarButtonItem = new UIBarButtonItem(leftButton);
+            // Refresh button
+            var iconReload = new UIButton(new CGRect(0, 0, _buttonDimensions, _buttonDimensions));
+            iconReload.SetImage(UIImage.FromFile(ReloadIconName()), UIControlState.Normal);
+            iconReload.TouchUpInside += (sender, e) => Refresh();
 
-			//refresh button
-			var iconReload = new UIButton(new CGRect(0, 0, 20, 20));
-			iconReload.SetImage(UIImage.FromFile("icon_reload.png"), UIControlState.Normal);
-			iconReload.TouchUpInside += (sender, e) => Refresh();
+            // Settings button
+            var iconSettings = new UIButton(new CGRect(0, 0, _buttonDimensions, _buttonDimensions));
+            iconSettings.SetImage(UIImage.FromFile(MoreIconName()), UIControlState.Normal);
+            iconSettings.TouchUpInside += (sender, e) => AnimateMenuToggle();
 
-			//settings button
-			var iconSettings = new UIButton(new CGRect(0, 0, 20, 20));
-			iconSettings.SetImage(UIImage.FromFile("icon_settings.png"), UIControlState.Normal);
-			iconSettings.TouchUpInside += (sender, e) => SettingsMenuAnimation();
+            UIBarButtonItem[] rightButtons = { new UIBarButtonItem(iconSettings), new UIBarButtonItem(iconReload) };
+            NavigationItem.RightBarButtonItems = rightButtons;
 
-			UIBarButtonItem[] rightButtons = { new UIBarButtonItem(iconSettings), new UIBarButtonItem(iconReload) };
+            // TODO Delete this OR set it to last visited icon
+            // imgLogo.Image = UIImage.FromFile(AppSettings.LogoName);
 
-			NavigationItem.RightBarButtonItems = rightButtons;
+            // Menu items            
+            //lblStartPage.TextColor = ColorFromValue("000000");
+            //lblStartPage.Font = UIFont.FromName("Lato", 17f);
 
-			_navBar = NavigationController.NavigationBar;
+            //lblLogOut.TextColor = ColorFromValue("000000");
+            //lblLogOut.Font = UIFont.FromName("Lato", 17f);
+        }
 
-			imgLogo.Image = UIImage.FromFile(AppSettings.LOGO_IMG_NAME);
+        void ShowMenu(bool show)
+        {            
+            nfloat centerPosition = show ? _originalCenterY : _offscreenCenterY;
+            menuContent.Center = new CGPoint(menuContent.Center.X, centerPosition);
+            _hasMenu = show;
+        }
 
-			menuContent.BackgroundColor = ColorFromValue(AppSettings.COLOR_MENU_BACKGROUND);
-			menuContent.Alpha = 0;
-			heightMenu.Constant = 0;
-
-			lblStartPage.TextColor = ColorFromValue(AppSettings.COLOR_MENU_TEXT_BACKGROUND);
-			lblLogOut.TextColor = ColorFromValue(AppSettings.COLOR_MENU_TEXT_BACKGROUND);
-			lblBuiltWith.TextColor = ColorFromValue(AppSettings.COLOR_MENU_TEXT_BACKGROUND);
-		}
-
-		void SettingsMenuAnimation()
+        void AnimateMenuToggle()
 		{
 			this.View.LayoutIfNeeded();
 			menuContent.LayoutIfNeeded();
@@ -88,13 +135,10 @@ namespace LiveTiles.iOS
 			UIView.BeginAnimations("ds");
 			UIView.SetAnimationDuration(0.3f);
 
-			menuContent.Alpha = hasMenu ? 0 : 1;
-			heightMenu.Constant = hasMenu ? 0 : 230;
+            ShowMenu(!_hasMenu);
 
 			View.LayoutIfNeeded();
-			UIView.CommitAnimations();
-
-			hasMenu = !hasMenu;
+			UIView.CommitAnimations();			
 		}
 
 		void Refresh()
@@ -102,31 +146,32 @@ namespace LiveTiles.iOS
 			LTWebView.Reload();
 		}
 
-		void GoToBack()
-		{
-			if (LTWebView.CanGoBack)
-				LTWebView.GoBack();
-		}
+        void GoToBack()
+        {
+            if (LTWebView.CanGoBack && !_prevUrl.Contains(Constants.LoginUrl))
+                LTWebView.GoBack();
+        }
 
 		partial void ActionStartPage(UIButton sender)
 		{
-			LTWebView.LoadRequest(new NSUrlRequest(new NSUrl(AppStatus.LatestURL)));
-			CloseMenu();
+			LTWebView.LoadRequest(new NSUrlRequest(new NSUrl(_appSettings.LatestUrl)));
+			AnimateMenuToggle();
 		}
 
 		partial void ActionLogOut(UIButton sender)
 		{
-			LTWebView.LoadRequest(new NSUrlRequest(new NSUrl(AppStatus.LatestURL)));
+			LTWebView.LoadRequest(new NSUrlRequest(new NSUrl(_appSettings.LatestUrl)));
 
 			NSUrlCache.SharedCache.RemoveAllCachedResponses();
 			foreach (NSHttpCookie cookie in NSHttpCookieStorage.SharedStorage.Cookies)
 			{
 				NSHttpCookieStorage.SharedStorage.DeleteCookie(cookie);
 			}
-			isLoggedOut = true;
+			_isLoggedOut = true;
 			NavigationController.NavigationBar.Hidden = true;
-			AppStatus.IsLoggedIn = false;
-			AppStatus.MxData = null;
+			_appSettings.IsLoggedIn = false;
+			_appSettings.MxData = null;
+            _appSettings.Save();
 			CloseMenu();
 
 			LoginVC ltNVC = Storyboard.InstantiateViewController("LoginVC") as LoginVC;
@@ -137,60 +182,62 @@ namespace LiveTiles.iOS
 		#region webview delegate
 		void HandleLoadStarted(object sender, EventArgs e)
 		{
-			var b = (sender as UIWebView).IsLoading;
-			_ProgressBar.Hidden = false;
+            //var b = (sender as UIWebView).IsLoading;
+            //_ProgressBar.Hidden = false;
 
-			//var strURL = request.Url.AbsoluteString;
+            //var strURL = request.Url.AbsoluteString;
 
-			//if (strURL.Contains("login"))
-			//	NavigationController.NavigationBar.Hidden = true;
-			//else
-			//	NavigationController.NavigationBar.Hidden = false;
-		}
+            //if (strURL.Contains("login"))
+            //	NavigationController.NavigationBar.Hidden = true;
+            //else
+            //	NavigationController.NavigationBar.Hidden = false;
+        }
 
 		void HandleLoadError(object sender, UIWebErrorArgs e)
 		{
-			_ProgressBar.Hidden = true;
+            //_ProgressBar.Hidden = true;
+            Console.WriteLine(e.Error);
 		}
 
 		void HandleLoadFinished(object sender, EventArgs e)
 		{
 			//var b = (sender as UIWebView).IsLoading;
-			_ProgressBar.Hidden = true;
+			// _ProgressBar.Hidden = true;
 
-			if (isLoggedOut) return;
+			if (_isLoggedOut) return;
 
 			var strURL = LTWebView.Request.Url.AbsoluteString;
 
-			if (strURL.Contains(AppSettings.SYMBOL_LOGIN))
+			if (strURL.Contains(Constants.LoginUrl))
 			{
-				_navBar.Hidden = true;
-				AppStatus.IsLoggedIn = false;
+				_appSettings.IsLoggedIn = false;
 
-				LTWebView.EvaluateJavascript(string.Format(AppSettings.INJECT_JS_FILL_EMAIL, _email));
+				LTWebView.EvaluateJavascript(string.Format(Constants.JsFillEmail, _email));
 			}
 			else
 			{
-				_navBar.Hidden = false;
-				AppStatus.IsLoggedIn = true;
+				_appSettings.IsLoggedIn = true;
 			}
-
-			string cssString = AppSettings.INJECT_CSS_HIDE_TOP_BAR;
-			string jsString = AppSettings.INJECT_JS_HIDE_BOTTOM_BAR;
+            
+            string cssString = Constants.CssHideTopBar;
+			string jsString = Constants.JsHideBottomBar;
 			string jsWithCSS = string.Format(jsString, cssString);
 			LTWebView.EvaluateJavascript(jsWithCSS);
 
-			CloseMenu();
-		}
+            if (_url != LTWebView.Request.Url.AbsoluteString)
+            {
+                _prevUrl = _url;
+                _url = LTWebView.Request.Url.AbsoluteString;
+            }
+
+            Console.WriteLine(_url);
+        }
 
 		void CloseMenu()
 		{
-			menuContent.Alpha = 0;
-			heightMenu.Constant = 0;
+            ShowMenu(false);
 
 			View.LayoutIfNeeded();
-
-			hasMenu = false;
 		}
   		#endregion
 	}

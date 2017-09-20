@@ -21,6 +21,13 @@ namespace LiveTiles.iOS
 			// Override point for customization after application launch.
 			// If not required for your application you can safely delete this method
 
+            // Customize user agent string to include app name
+			UIWebView agentWebView = new UIWebView();
+			var userAgent = agentWebView.EvaluateJavascript("navigator.userAgent");
+            userAgent = "LiveTilesMX/1.0 " + userAgent;
+			NSDictionary dictionary = NSDictionary.FromObjectAndKey(NSObject.FromObject(userAgent), NSObject.FromObject("UserAgent"));
+			NSUserDefaults.StandardUserDefaults.RegisterDefaults(dictionary);
+
 			return true;
 		}
 

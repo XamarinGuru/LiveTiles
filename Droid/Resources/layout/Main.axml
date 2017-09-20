@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/background"
-    android:background="@drawable/background">
+    android:background="#ff00be9c">
     <LinearLayout
         android:orientation="horizontal"
         android:minWidth="25px"
@@ -15,20 +15,20 @@
         android:layout_weight="1.5"
         android:gravity="center">
         <ImageView
-            android:src="@drawable/icon_logo"
-            android:layout_width="200dp"
+            android:src="@drawable/livetileslight"
+            android:layout_width="300dp"
             android:layout_height="100dp"
             android:id="@+id/imgLogo" />
     </LinearLayout>
     <LinearLayout
         android:orientation="vertical"
-        android:minWidth="25px"
         android:minHeight="25px"
         android:id="@+id/linearLayout3"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="0.5"
-        android:gravity="center">
+        android:gravity="center"
+        android:minWidth="100px">
         <EditText
             android:layout_width="290dp"
             android:layout_height="50dp"
@@ -49,17 +49,17 @@
     </LinearLayout>
     <LinearLayout
         android:orientation="horizontal"
-        android:minWidth="25px"
         android:minHeight="25px"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:id="@+id/linearLayout2"
         android:layout_weight="1"
-        android:gravity="center">
+        android:gravity="center"
+        android:minWidth="100px">
         <Button
             android:id="@+id/btnLogin"
             android:text="Log In"
-            android:textColor="#ff24b4f9"
+            android:textColor="#ff000000"
             android:background="#ffffffff"
             android:layout_width="300dp"
             android:layout_height="50dp" />
@@ -71,5 +71,5 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:id="@+id/linearLayout3"
-        android:layout_weight="1" />
+        android:layout_weight="2" />
 </LinearLayout>

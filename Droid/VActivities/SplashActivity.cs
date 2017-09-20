@@ -6,7 +6,7 @@ using Android.Content;
 
 namespace LiveTiles.Droid
 {
-	[Activity(Label = "LiveTiles", MainLauncher = true, Icon = "@drawable/AppIcon", Theme = "@style/MyTheme.Splash", NoHistory = true, ScreenOrientation = ScreenOrientation.Portrait)]
+	[Activity(Label = "Showcase", MainLauncher = true, Icon = "@drawable/appicon120", Theme = "@style/MyTheme.Splash", NoHistory = true, ScreenOrientation = ScreenOrientation.Portrait)]
 	public class SplashActivity : Activity
 	{
 		public override void OnCreate(Bundle savedInstanceState, PersistableBundle persistentState)

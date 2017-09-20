@@ -1,6 +1,6 @@
 // WARNING
 //
-// This file has been generated automatically by Xamarin Studio from the outlets and
+// This file has been generated automatically by Visual Studio from the outlets and
 // actions declared in your storyboard file.
 // Manual changes to this file will not be maintained.
 //
@@ -16,27 +16,7 @@ namespace LiveTiles.iOS
     {
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
-        UIKit.UIImageView _ProgressBar { get; set; }
-
-        [Outlet]
-        [GeneratedCode ("iOS Designer", "1.0")]
-        UIKit.NSLayoutConstraint heightMenu { get; set; }
-
-        [Outlet]
-        [GeneratedCode ("iOS Designer", "1.0")]
         UIKit.UIImageView imgLogo { get; set; }
-
-        [Outlet]
-        [GeneratedCode ("iOS Designer", "1.0")]
-        UIKit.UILabel lblBuiltWith { get; set; }
-
-        [Outlet]
-        [GeneratedCode ("iOS Designer", "1.0")]
-        UIKit.UILabel lblLogOut { get; set; }
-
-        [Outlet]
-        [GeneratedCode ("iOS Designer", "1.0")]
-        UIKit.UILabel lblStartPage { get; set; }
 
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
@@ -56,34 +36,9 @@ namespace LiveTiles.iOS
 
         void ReleaseDesignerOutlets ()
         {
-            if (_ProgressBar != null) {
-                _ProgressBar.Dispose ();
-                _ProgressBar = null;
-            }
-
-            if (heightMenu != null) {
-                heightMenu.Dispose ();
-                heightMenu = null;
-            }
-
             if (imgLogo != null) {
                 imgLogo.Dispose ();
                 imgLogo = null;
-            }
-
-            if (lblBuiltWith != null) {
-                lblBuiltWith.Dispose ();
-                lblBuiltWith = null;
-            }
-
-            if (lblLogOut != null) {
-                lblLogOut.Dispose ();
-                lblLogOut = null;
-            }
-
-            if (lblStartPage != null) {
-                lblStartPage.Dispose ();
-                lblStartPage = null;
             }
 
             if (LTWebView != null) {

@@ -20,7 +20,7 @@ namespace LiveTiles.Droid
 		WebView LTWebView;
 		bool isLoggedOut = false;
 		LinearLayout _navBar;
-		LinearLayout linearProgress;
+        AndroidAppSettings _appSettings = AndroidAppSettings.Instance;
 
 		protected override void OnCreate(Bundle savedInstanceState)
 		{
@@ -33,17 +33,21 @@ namespace LiveTiles.Droid
 
 			string email = Intent.GetStringExtra("EMAIL");
 
-			LTWebView.SetWebViewClient(new MMWebViewClient(linearProgress));
-			LTWebView.SetWebChromeClient(new MMWebChromeClient(this, _navBar, linearProgress, email));
+			LTWebView.SetWebViewClient(new MMWebViewClient(null));
+            var client = new MMWebChromeClient(this, _navBar, null, email);
+            client.AppSettings = _appSettings;
+			LTWebView.SetWebChromeClient(client);
 
-			//var homepageURL = AppStatus.MxData.homepageURL;
-			var homepageURL = AppStatus.LatestURL;
-			if (AppStatus.MxData != null && !string.IsNullOrEmpty(AppStatus.MxData.homepageURL))
+            _appSettings.Load();
+			var homepageURL = _appSettings.LatestUrl;
+			if (AppSettingsBase.OverrideUrl != null || _appSettings.MxData != null && !string.IsNullOrEmpty(_appSettings.MxData.homepageURL))
 			{
-				homepageURL = AppStatus.MxData.homepageURL;
-				AppStatus.LatestURL = AppStatus.MxData.homepageURL;
+				homepageURL = AppSettingsBase.OverrideUrl ?? _appSettings.MxData.homepageURL;
+				_appSettings.LatestUrl = homepageURL;
 			}
 
+            // Add LiveTilesMX to the User-agent string
+            LTWebView.Settings.UserAgentString = "LiveTilesMX/1.0 " + LTWebView.Settings.UserAgentString;
 			LTWebView.LoadUrl(homepageURL);
 		}
 
@@ -52,36 +56,30 @@ namespace LiveTiles.Droid
 			_navBar = FindViewById<LinearLayout>(Resource.Id.navBar);
 			_navBar.SetBackgroundColor(
 				Color.ParseColor(
-					GlobalFunctions.AndroidColorFormat(AppSettings.COLOR_NAVIGATION_BAR_BACKGROUND)
-				)
-			);
+					Utils.AndroidColorFormat(_appSettings.FeatureColor)
+                ));
 			_navBar.Visibility = ViewStates.Gone;
+
+            // Settings menu styles are static
 
 			settingsMenu = FindViewById<LinearLayout>(Resource.Id.settingsMenu);
 			settingsMenu.SetBackgroundColor(
 				Color.ParseColor(
-					GlobalFunctions.AndroidColorFormat(AppSettings.COLOR_MENU_BACKGROUND)
+					Utils.AndroidColorFormat("FFFFFF")
 				)
 			);
 			settingsMenu.Visibility = ViewStates.Gone;
 
 			FindViewById<TextView>(Resource.Id.txtStartPage).SetTextColor(
 				Color.ParseColor(
-					GlobalFunctions.AndroidColorFormat(AppSettings.COLOR_MENU_TEXT_BACKGROUND)
+					Utils.AndroidColorFormat("000000")
 				)
 			);
 			FindViewById<TextView>(Resource.Id.txtLogOut).SetTextColor(
 				Color.ParseColor(
-					GlobalFunctions.AndroidColorFormat(AppSettings.COLOR_MENU_TEXT_BACKGROUND)
+					Utils.AndroidColorFormat("000000")
 				)
 			);
-			FindViewById<TextView>(Resource.Id.txtBuiltWith).SetTextColor(
-				Color.ParseColor(
-					GlobalFunctions.AndroidColorFormat(AppSettings.COLOR_MENU_TEXT_BACKGROUND)
-				)
-			);
-
-			FindViewById<ImageView>(Resource.Id.imgLogo).SetImageResource(Resource.Drawable.icon_logo);
 
 			FindViewById<LinearLayout>(Resource.Id.ActionBack).Click += ActionBack;
 			FindViewById<LinearLayout>(Resource.Id.ActionRefresh).Click += ActionRefresh;
@@ -90,8 +88,6 @@ namespace LiveTiles.Droid
 			FindViewById<LinearLayout>(Resource.Id.ActionStartPage).Click += ActionStartPage;
 			FindViewById<LinearLayout>(Resource.Id.ActionLogOut).Click += ActionLogOut;
 
-			linearProgress = FindViewById<LinearLayout>(Resource.Id.linearProgress);
-
 			LTWebView = FindViewById<WebView>(Resource.Id.LTWebView);
 
 			LTWebView.Settings.JavaScriptEnabled = true;
@@ -99,6 +95,7 @@ namespace LiveTiles.Droid
 			LTWebView.Settings.EnableSmoothTransition();
 			LTWebView.Settings.LoadsImagesAutomatically = true;
 			LTWebView.Settings.SetGeolocationEnabled(true);
+            LTWebView.Settings.DomStorageEnabled = true;
 			LTWebView.SetBackgroundColor(Color.Transparent);
 		}
 
@@ -120,16 +117,15 @@ namespace LiveTiles.Droid
 
 		void ActionStartPage(object sender, EventArgs e)
 		{
-			LTWebView.LoadUrl(AppStatus.LatestURL);
+			LTWebView.LoadUrl(_appSettings.LatestUrl);
 			SettingsMenuAnimation();
 		}
 
 		void ActionLogOut(object sender, EventArgs e)
 		{
-			LTWebView.LoadUrl(AppStatus.LatestURL);
-			SettingsMenuAnimation();
+			LTWebView.LoadUrl(_appSettings.LatestUrl);
+            SettingsMenuAnimation();
 
-			CookieSyncManager.CreateInstance(this);
 			CookieManager cookieManager = CookieManager.Instance;
 			cookieManager.RemoveAllCookie();
 			cookieManager.RemoveAllCookies(null);
@@ -143,8 +139,9 @@ namespace LiveTiles.Droid
 
 			isLoggedOut = true;
 			_navBar.Visibility = ViewStates.Gone;
-			AppStatus.IsLoggedIn = false;
-			AppStatus.MxData = null;
+			_appSettings.IsLoggedIn = false;
+			_appSettings.MxData = null;
+            _appSettings.Save();
 			Finish();
 		}
 
@@ -224,6 +221,8 @@ namespace LiveTiles.Droid
 			LinearLayout _ProgressBar;
 			string _email;
 
+            public AndroidAppSettings AppSettings { get; set; }
+
 			public MMWebChromeClient(LiveTilesHomeAC act, LinearLayout navBar, LinearLayout linearProgress, string email)
 			{
 				_act = act;
@@ -245,24 +244,24 @@ namespace LiveTiles.Droid
 
 					if (_act.isLoggedOut) return;
 
-					CookieSyncManager.Instance.Sync();
+                    CookieManager.Instance.Flush();
 
 					var strURL = view.Url;
-					if (strURL.Contains(AppSettings.SYMBOL_LOGIN))
+					if (strURL.Contains(Constants.LoginUrl))
 					{
 						_navBar.Visibility = ViewStates.Gone;
-						AppStatus.IsLoggedIn = false;
+						AppSettings.IsLoggedIn = false;
 
-						view.LoadUrl(string.Format(AppSettings.INJECT_JS_FILL_EMAIL, _email));
+						view.LoadUrl(string.Format(Constants.JsFillEmail, _email));
 					}
 					else
 					{
 						_navBar.Visibility = ViewStates.Visible;
-						AppStatus.IsLoggedIn = true;
+						AppSettings.IsLoggedIn = true;
 					}
 
-					string cssString = AppSettings.INJECT_CSS_HIDE_TOP_BAR;
-					string jsString = AppSettings.INJECT_JS_HIDE_BOTTOM_BAR;
+					string cssString = Constants.CssHideTopBar;
+					string jsString = Constants.JsHideBottomBar;
 					string jsWithCSS = string.Format(jsString, cssString);
 					view.EvaluateJavascript(jsWithCSS, null);
 				}

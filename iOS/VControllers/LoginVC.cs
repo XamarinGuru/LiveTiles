@@ -6,6 +6,8 @@ namespace LiveTiles.iOS
 {
     public partial class LoginVC : BaseViewController
     {
+        AppleAppSettings _appSettings = AppleAppSettings.Instance;
+
         public LoginVC() : base()
 		{
 		}
@@ -24,7 +26,9 @@ namespace LiveTiles.iOS
 		{
 			base.ViewDidAppear(animated);
 
-			if (AppStatus.IsLoggedIn == true && AppStatus.MxData != null)
+            _appSettings.Load();
+
+			if (_appSettings.IsLoggedIn == true && _appSettings.MxData != null)
 			{
 				GoToMainVC(string.Empty);
 			}
@@ -35,36 +39,49 @@ namespace LiveTiles.iOS
 			btnLogin.Layer.CornerRadius = 5;
 			btnLogin.ClipsToBounds = true;
 
-			View.BackgroundColor = ColorFromValue(AppSettings.COLOR_LOGIN_BACKGROUND);
-			btnLogin.SetTitleColor(ColorFromValue(AppSettings.COLOR_LOGIN_BUTTON_BACKGROUND), UIControlState.Normal);
-			btnLogin.BackgroundColor = ColorFromValue(AppSettings.COLOR_LOGIN_BUTTON_TEXT_BACKGROUND);
+			View.BackgroundColor = ColorFromValue(_appSettings.FeatureColor);
+			btnLogin.SetTitleColor(ColorFromValue(_appSettings.FeatureColor), UIControlState.Normal);
+			btnLogin.BackgroundColor = ColorFromValue(_appSettings.BackgroundColorForTheme);
 
-			imgLogo.Image = UIImage.FromFile(AppSettings.LOGO_IMG_NAME);
+            txtEmail.Font = UIFont.FromName("Lato", 18f);
+    		btnLogin.Font = UIFont.FromName("Lato", 18f);
+
+			// TODO Delete this OR set it to last load
+			// imgLogo.Image = UIImage.FromFile(AppSettings.LogoName);
 		}
 
-		async partial void ActionLogin(UIButton sender)
+		partial void ActionLogin(UIButton sender)
 		{
 			if (String.IsNullOrEmpty(txtEmail.Text))
 			{
-				ShowMessageBox(null, AppSettings.MSG_EMPTY_EMAIL);
+				ShowMessageBox(null, Constants.EmptyEmailTxt);
 				return;
 			}
 
-			ShowLoadingView(AppSettings.MSG_LOADING);
+			ShowLoadingView(Constants.LoadingTxt);
 
-			var mxData = await GlobalFunctions.GetMXData(txtEmail.Text);
+            var txt = txtEmail.Text;
 
-			HideLoadingView();
-
-			if (mxData == null)
+            new System.Threading.Thread(new System.Threading.ThreadStart(async () => 
 			{
-				ShowMessageBox(null, AppSettings.MSG_INVALID_EMAIL);
-				return;
-			}
+				var mxData = await MxData.LoadAsync(txt);
 
-			AppStatus.MxData = mxData;
+				InvokeOnMainThread(() =>
+				{
+					HideLoadingView();
 
-			GoToMainVC(txtEmail.Text);
+					if (mxData == null)
+					{
+						ShowMessageBox(null, Constants.InvalidEmailTxt);
+						return;
+					}
+
+					_appSettings.MxData = mxData;
+                    _appSettings.Save();
+
+					GoToMainVC(txtEmail.Text);
+				});
+			})).Start();
 		}
 
 		void GoToMainVC(string email)

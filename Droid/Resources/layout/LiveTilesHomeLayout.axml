@@ -21,7 +21,7 @@
                 android:layout_width="25dp"
                 android:layout_height="25dp"
                 android:id="@+id/imageView1"
-                android:background="@drawable/icon_back" />
+                android:background="@drawable/back_icon_white" />
         </LinearLayout>
         <LinearLayout
             android:orientation="horizontal"
@@ -40,7 +40,7 @@
             android:id="@+id/ActionRefresh"
             android:gravity="center">
             <ImageView
-                android:src="@drawable/icon_reload"
+                android:src="@drawable/refresh_icon_white"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
                 android:id="@+id/imageView3" />
@@ -54,7 +54,7 @@
             android:id="@+id/ActionSettings"
             android:gravity="center">
             <ImageView
-                android:src="@drawable/icon_settings"
+                android:src="@drawable/more_icon_white"
                 android:layout_width="20dp"
                 android:layout_height="30dp"
                 android:id="@+id/imageView2" />
@@ -78,15 +78,50 @@
             android:layout_height="wrap_content"
             android:id="@+id/settingsMenu">
             <LinearLayout
+                android:orientation="vertical"
+                android:minWidth="25px"
+                android:minHeight="25px"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/linearLayout8"
+                android:background="#ffffffff">
+                <ImageView
+                    android:src="@drawable/livetilesdark"
+                    android:layout_width="371.5dp"
+                    android:layout_height="30dp"
+                    android:id="@+id/imgLogo"
+                    android:layout_margin="5dp" />
+            </LinearLayout>
+            <LinearLayout
+                android:orientation="vertical"
+                android:minWidth="25px"
+                android:minHeight="25px"
+                android:id="@+id/linearLayout9"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#ffffffff">
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:minWidth="25px"
+                    android:minHeight="25px"
+                    android:id="@+id/linearLayout9"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#ffffffff" />
+            </LinearLayout>
+            <LinearLayout
                 android:orientation="horizontal"
                 android:minWidth="25px"
                 android:minHeight="25px"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:id="@+id/ActionStartPage"
-                android:layout_marginTop="10dp">
+                android:layout_marginTop="0dp"
+                android:baselineAligned="true"
+                android:paddingLeft="70dp"
+                android:background="#ffffffff">
                 <ImageView
-                    android:src="@drawable/icon_home"
+                    android:src="@drawable/home_icon"
                     android:layout_width="100dp"
                     android:layout_height="match_parent"
                     android:id="@+id/imageView4"
@@ -96,7 +131,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:id="@+id/txtStartPage"
-                    android:gravity="center" />
+                    android:gravity="center"
+                    android:textColor="#ff000000" />
             </LinearLayout>
             <LinearLayout
                 android:orientation="horizontal"
@@ -104,7 +140,9 @@
                 android:minHeight="25px"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:id="@+id/ActionLogOut">
+                android:id="@+id/ActionLogOut"
+                android:paddingLeft="70dp"
+                android:background="#ffffffff">
                 <ImageView
                     android:src="@drawable/icon_logout"
                     android:layout_width="100dp"
@@ -116,7 +154,26 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:id="@+id/txtLogOut"
-                    android:gravity="center" />
+                    android:gravity="center"
+                    android:textColor="#ff000000" />
+            </LinearLayout>
+            <LinearLayout
+                android:orientation="vertical"
+                android:minWidth="25px"
+                android:minHeight="25px"
+                android:id="@+id/linearLayout9"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:requiresFadingEdge="none"
+                android:fadingEdge="none">
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:minWidth="25px"
+                    android:minHeight="25px"
+                    android:id="@+id/linearLayout9"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#ffffffff" />
             </LinearLayout>
             <LinearLayout
                 android:orientation="horizontal"
@@ -124,42 +181,8 @@
                 android:minHeight="25px"
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
-                android:id="@+id/linearLayout7" />
-            <LinearLayout
-                android:orientation="vertical"
-                android:minWidth="25px"
-                android:minHeight="25px"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/linearLayout8">
-                <TextView
-                    android:text="Built with"
-                    android:layout_width="wrap_content"
-                    android:layout_height="15dp"
-                    android:id="@+id/txtBuiltWith"
-                    android:textSize="12dp"
-                    android:layout_marginLeft="20dp" />
-                <ImageView
-                    android:src="@drawable/icon_logo"
-                    android:layout_width="wrap_content"
-                    android:layout_height="30dp"
-                    android:id="@+id/imgLogo"
-                    android:layout_margin="5dp" />
-            </LinearLayout>
-        </LinearLayout>
-        <LinearLayout
-            android:orientation="horizontal"
-            android:minWidth="25px"
-            android:minHeight="25px"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/linearProgress"
-            android:gravity="center">
-            <ImageView
-                android:layout_width="150dp"
-                android:layout_height="150dp"
-                android:id="@+id/imageView5"
-                android:src="@drawable/icon_progress" />
+                android:id="@+id/linearLayout7"
+                android:background="@drawable/shadow" />
         </LinearLayout>
     </RelativeLayout>
 </LinearLayout>
